@@ -853,6 +853,8 @@ img {
 .project-grid {
   display: grid;
   gap: 1.15rem;
+  contain: layout style;
+  will-change: contents;
 }
 
 .highlights-grid {
@@ -873,6 +875,12 @@ img {
   border: 1px solid var(--surface-border);
   box-shadow: var(--shadow-card);
   backdrop-filter: blur(18px);
+  contain: layout style paint;
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 .feature-card {
@@ -1264,6 +1272,20 @@ img {
   border: 3px solid rgba(16, 32, 56, 0.12);
   border-top-color: var(--accent);
   animation: spin 1s linear infinite;
+}
+
+/* Scroll Performance Optimizations */
+[style*="will-change"] {
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Smooth scroll behavior for viewport reveal elements */
+@supports (scroll-behavior: smooth) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 @media (max-width: 1100px) {
