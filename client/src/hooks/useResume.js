@@ -14,7 +14,7 @@ export function useResumeDownload() {
 
     try {
       // Use static resume file from public directory
-      const resumeUrl = '/resume.pdf';
+      const resumeUrl = '/resume/Shamsher_Tiwari_resume.pdf';
 
       // Create a temporary anchor element and trigger download
       const link = document.createElement('a');
@@ -48,11 +48,11 @@ export function useResumeInfo() {
   const resumeInfo = {
     available: true,
     filename: 'Shamsher_Tiwari_resume.pdf',
-    path: '/resume.pdf',
+    path: '/resume/Shamsher_Tiwari_resume.pdf',
     size: 245000, // Approximate size in bytes
     sizeKB: 245,
     lastModified: new Date('2024-01-15'),
-    downloadUrl: '/resume.pdf',
+    downloadUrl: '/resume/Shamsher_Tiwari_resume.pdf',
   };
 
   return {
