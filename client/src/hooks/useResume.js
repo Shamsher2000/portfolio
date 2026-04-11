@@ -13,8 +13,11 @@ export function useResumeDownload() {
     setDownloadError(null);
 
     try {
+      // Use environment variable for API URL
+      const API_BASE = import.meta.env.VITE_API_URL || import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+      
       // Fetch the resume from the API endpoint
-      const response = await fetch('/api/resume/download');
+      const response = await fetch(`${API_BASE}/api/resume/download`);
 
       if (!response.ok) {
         throw new Error(`Failed to download resume: ${response.statusText}`);
@@ -67,7 +70,10 @@ export function useResumeInfo() {
     setError(null);
 
     try {
-      const response = await fetch('/api/resume/info');
+      // Use environment variable for API URL
+      const API_BASE = import.meta.env.VITE_API_URL || import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+      
+      const response = await fetch(`${API_BASE}/api/resume/info`);
 
       if (!response.ok) {
         throw new Error('Failed to fetch resume info');
@@ -105,7 +111,10 @@ export function usePortfolioReseed() {
     setReseedError(null);
 
     try {
-      const response = await fetch('/api/admin/reseed', {
+      // Use environment variable for API URL
+      const API_BASE = import.meta.env.VITE_API_URL || import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+      
+      const response = await fetch(`${API_BASE}/api/admin/reseed`, {
         method: 'POST',
       });
 

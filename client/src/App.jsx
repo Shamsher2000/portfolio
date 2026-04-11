@@ -206,7 +206,10 @@ export default function App() {
 
     async function loadProfile() {
       try {
-        const response = await fetch('/api/profile', {
+        // Use environment variable for API URL
+        const API_BASE = import.meta.env.VITE_API_URL || import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+        
+        const response = await fetch(`${API_BASE}/api/profile`, {
           signal: controller.signal,
         });
 
