@@ -16,19 +16,20 @@ export default defineConfig({
     cors: true,
   },
   build: {
-    target: 'esnext',
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-      },
-    },
+    target: 'es2015',
+    minify: 'esbuild',
     rollupOptions: {
       output: {
-        manualChunks: {
-          'framer-motion': ['framer-motion'],
-          'lucide-react': ['lucide-react'],
+        manualChunks(id) {
+          if (id.includes('framer-motion')) {
+            return 'framer-motion';
+          }
+          if (id.includes('lucide-react')) {
+            return 'lucide-react';
+          }
+          if (id.includes('react') || id.includes('react-dom')) {
+            return 'react';
+          }
         },
       },
     },
