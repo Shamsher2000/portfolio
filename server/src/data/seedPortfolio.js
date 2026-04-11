@@ -1,4 +1,11 @@
-export const seedPortfolio = {
+import { parseResumePDF } from '../utils/pdfParser.js';
+import { getPrimaryResumePath, primaryResumeExists, pdfConfig } from '../config/pdfConfig.js';
+
+/**
+ * Fallback portfolio data (used when PDF is not available)
+ * Keep this as a comprehensive default that matches the expected structure
+ */
+export const fallbackPortfolioData = {
   slug: 'primary',
   personal: {
     name: 'Shamsher Tiwari',
@@ -198,3 +205,58 @@ export const seedPortfolio = {
     location: 'Bengaluru, Karnataka',
   },
 };
+
+/**
+ * Dynamically load portfolio data
+ * First tries to read from PDF, falls back to default data
+ */
+export async function loadPortfolioData() {
+  if (primaryResumeExists()) {
+    try {
+      console.log(`📄 Reading resume from PDF: ${getPrimaryResumePath()}`);
+      const pdfData = await parseResumePDF(getPrimaryResumePath());
+      console.log('✅ Successfully parsed resume PDF');
+      
+      // Merge PDF data with fallback data to ensure all fields exist
+      return mergeWithFallback(pdfData);
+    } catch (error) {
+      console.error(`⚠️  Error parsing PDF: ${error.message}`);
+      
+      if (pdfConfig.useFallbackOnError) {
+        console.log('📌 Falling back to default portfolio data');
+        return fallbackPortfolioData;
+      }
+      throw error;
+    }
+  } else {
+    console.log(`📌 No PDF found at ${getPrimaryResumePath()}, using fallback data`);
+    console.log(`💡 To enable PDF-based seeding, place your resume PDF in: ${getPrimaryResumePath()}`);
+    return fallbackPortfolioData;
+  }
+}
+
+/**
+ * Merge parsed PDF data with fallback to ensure all required fields are present
+ */
+function mergeWithFallback(pdfData) {
+  return {
+    slug: pdfData.slug || fallbackPortfolioData.slug,
+    personal: {
+      ...fallbackPortfolioData.personal,
+      ...pdfData.personal,
+    },
+    heroMetrics: pdfData.heroMetrics?.length > 0 ? pdfData.heroMetrics : fallbackPortfolioData.heroMetrics,
+    marquee: pdfData.marquee?.length > 0 ? pdfData.marquee : fallbackPortfolioData.marquee,
+    highlights: pdfData.highlights?.length > 0 ? pdfData.highlights : fallbackPortfolioData.highlights,
+    experience: pdfData.experience?.length > 0 ? pdfData.experience : fallbackPortfolioData.experience,
+    projects: pdfData.projects?.length > 0 ? pdfData.projects : fallbackPortfolioData.projects,
+    skillBuckets: pdfData.skillBuckets?.length > 0 ? pdfData.skillBuckets : fallbackPortfolioData.skillBuckets,
+    recruiterChecklist: pdfData.recruiterChecklist?.length > 0 ? pdfData.recruiterChecklist : fallbackPortfolioData.recruiterChecklist,
+    education: pdfData.education && Object.values(pdfData.education).some(v => v) 
+      ? pdfData.education 
+      : fallbackPortfolioData.education,
+  };
+}
+
+// Export the fallback data for backward compatibility
+export const seedPortfolio = fallbackPortfolioData;

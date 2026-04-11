@@ -23,6 +23,7 @@ import {
 import Reveal from './components/Reveal.jsx';
 import SectionHeading from './components/SectionHeading.jsx';
 import TechBackground from './components/TechBackground.jsx';
+import { useResumeDownload } from './hooks/useResume.js';
 
 // Memoized external link pill component
 const ExternalLinkPillMemo = memo(({ link, compact = false }) => {
@@ -60,7 +61,7 @@ const highlightIcons = [ShieldCheck, Monitor, Workflow];
 const checklistIcons = [Rocket, ShieldCheck, Cpu, GraduationCap];
 
 // Memoized navbar component
-const TopBar = memo(({ profile, isMenuOpen, onMenuOpen }) => (
+const TopBar = memo(({ profile, isMenuOpen, onMenuOpen, onDownload, isDownloading }) => (
   <header className="topbar">
     <a href="#hero" className="brand-mark">
       <span>ST</span>
@@ -79,10 +80,15 @@ const TopBar = memo(({ profile, isMenuOpen, onMenuOpen }) => (
     </nav>
 
     <div className="topbar-actions">
-      <a className="ghost-button desktop-only" href={profile.personal.resumeUrl} download>
+      <button 
+        className="ghost-button desktop-only" 
+        onClick={onDownload}
+        disabled={isDownloading}
+        title="Download your resume PDF"
+      >
         <Download size={16} />
-        <span>Resume</span>
-      </a>
+        <span>{isDownloading ? 'Downloading...' : 'Resume'}</span>
+      </button>
       <button
         type="button"
         className="menu-button"
@@ -98,7 +104,7 @@ const TopBar = memo(({ profile, isMenuOpen, onMenuOpen }) => (
 TopBar.displayName = 'TopBar';
 
 // Memoized mobile menu component
-const MobileMenu = memo(({ isOpen, onClose, profile }) => (
+const MobileMenu = memo(({ isOpen, onClose, profile, onDownload, isDownloading }) => (
   <AnimatePresence>
     {isOpen ? (
       <motion.div
@@ -138,10 +144,15 @@ const MobileMenu = memo(({ isOpen, onClose, profile }) => (
             <a className="primary-button" href="#contact" onClick={onClose}>
               Let&apos;s Connect
             </a>
-            <a className="ghost-button" href={profile.personal.resumeUrl} download>
+            <button 
+              className="ghost-button" 
+              onClick={onDownload}
+              disabled={isDownloading}
+              title="Download your resume PDF"
+            >
               <Download size={16} />
-              <span>Download Resume</span>
-            </a>
+              <span>{isDownloading ? 'Downloading...' : 'Download Resume'}</span>
+            </button>
           </div>
         </motion.div>
       </motion.div>
@@ -156,6 +167,7 @@ export default function App() {
   const [error, setError] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { scrollYProgress } = useScroll();
+  const { downloadResume, isDownloading } = useResumeDownload();
   
   // All useTransform calls must be at the top level, not inside useMemo
   const heroY = useTransform(scrollYProgress, [0, 0.2], [0, -100]);
@@ -263,8 +275,20 @@ export default function App() {
         </div>
       </div>
 
-      <TopBar profile={profile} isMenuOpen={isMenuOpen} onMenuOpen={handleMenuOpen} />
-      <MobileMenu isOpen={isMenuOpen} onClose={handleMenuClose} profile={profile} />
+      <TopBar 
+        profile={profile} 
+        isMenuOpen={isMenuOpen} 
+        onMenuOpen={handleMenuOpen}
+        onDownload={downloadResume}
+        isDownloading={isDownloading}
+      />
+      <MobileMenu 
+        isOpen={isMenuOpen} 
+        onClose={handleMenuClose} 
+        profile={profile}
+        onDownload={downloadResume}
+        isDownloading={isDownloading}
+      />
 
       <main>
         <HeroSection profile={profile} scrollTransforms={scrollTransforms} onMenuClose={handleMenuClose} />
