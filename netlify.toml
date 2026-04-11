@@ -13,10 +13,9 @@
   # Environment settings
   # PORT is not required for the frontend build and can trigger a false positive
   # in Netlify's secret scan when it is present in build environment output.
-  environment = {
-    NODE_VERSION = "20.19.0",
-    SECRETS_SCAN_OMIT_KEYS = "PORT"
-  }
+[build.environment]
+  NODE_VERSION = "20.19.0"
+  SECRETS_SCAN_OMIT_KEYS = "PORT"
 
 # Redirect all non-file requests to index.html for React Router
 [[redirects]]
@@ -47,23 +46,20 @@
 [context.production]
   command = "cd client && npm install && npm run build"
   publish = "client/dist"
-  environment = {
-    NODE_VERSION = "20.19.0",
-    SECRETS_SCAN_OMIT_KEYS = "PORT"
-  }
+[context.production.environment]
+  NODE_VERSION = "20.19.0"
+  SECRETS_SCAN_OMIT_KEYS = "PORT"
 
 [context.preview]
   command = "cd client && npm install && npm run build"
   publish = "client/dist"
-  environment = {
-    NODE_VERSION = "20.19.0",
-    SECRETS_SCAN_OMIT_KEYS = "PORT"
-  }
+[context.preview.environment]
+  NODE_VERSION = "20.19.0"
+  SECRETS_SCAN_OMIT_KEYS = "PORT"
 
 [context.develop]
   command = "cd client && npm install && npm run dev"
   publish = "client/dist"
-  environment = {
-    NODE_VERSION = "20.19.0",
-    SECRETS_SCAN_OMIT_KEYS = "PORT"
-  }
+[context.develop.environment]
+  NODE_VERSION = "20.19.0"
+  SECRETS_SCAN_OMIT_KEYS = "PORT"
