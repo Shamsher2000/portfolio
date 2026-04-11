@@ -4,197 +4,202 @@
  */
 
 export const staticPortfolioData = {
+  slug: 'primary',
   personal: {
-    name: "Shamsher Tiwari",
-    title: "Full Stack Developer",
-    shortTitle: "Full Stack Dev",
-    subtitle: "Building secure systems, real-time experiences, and products people remember. Passionate about clean code, scalable architecture, and user-centric design.",
-    email: "contact@shamsher.dev",
-    phone: "+91 98765 43210",
-    availability: "Available for new opportunities",
-    resumeUrl: "/resume.pdf",
+    name: 'Shamsher Tiwari',
+    shortTitle: 'System Development Engineer 2',
+    title: 'System Development Engineer 2 at Dell Technologies',
+    subtitle:
+      'I build secure backend systems, expressive React experiences, and automation flows that make enterprise infrastructure easier to operate and more delightful to use.',
+    availability:
+      'Open to thoughtful recruiter conversations and software engineering opportunities that value ownership, product sense, and full-stack execution.',
+    email: 'shamshertiwari.nov2000@gmail.com',
+    phone: '+91 8765616755',
+    location: 'Bengaluru, Karnataka, India',
+    resumeUrl: '/resume/Shamsher_Tiwari_resume.pdf',
     links: [
       {
-        label: "GitHub",
-        href: "https://github.com/Shamsher2000"
+        label: 'LinkedIn',
+        href: 'https://www.linkedin.com/in/shamsher-tiwari-a2314620b/',
       },
       {
-        label: "LinkedIn",
-        href: "https://www.linkedin.com/in/shamsher-tiwari-a2314620b/"
+        label: 'GitHub',
+        href: 'https://github.com/Shamsher2000',
       },
       {
-        label: "Email",
-        href: "mailto:contact@shamsher.dev"
-      }
-    ]
+        label: 'Email',
+        href: 'mailto:shamshertiwari.nov2000@gmail.com',
+      },
+    ],
   },
   heroMetrics: [
     {
-      value: "3+",
-      label: "Years Experience",
-      detail: "in full-stack development"
+      value: '70%',
+      label: 'More user control',
+      detail: 'Scope-based permissions for high-security infrastructure APIs.',
     },
     {
-      value: "15+",
-      label: "Projects Completed",
-      detail: "across various domains"
+      value: '2x',
+      label: 'Faster deployment',
+      detail: 'Python automation reduced repetitive setup effort across environments.',
     },
     {
-      value: "5+",
-      label: "Technologies Mastered",
-      detail: "modern web technologies"
-    }
+      value: '30%+',
+      label: 'Global admin impact',
+      detail: 'Backend features shipped for datacentre administrators worldwide.',
+    },
+    {
+      value: '9.5',
+      label: 'CGPA',
+      detail: 'Strong academic base in computer science and systems thinking.',
+    },
   ],
   marquee: [
-    "React", "Node.js", "MongoDB", "Express", "JavaScript", "TypeScript",
-    "Python", "Django", "PostgreSQL", "AWS", "Docker", "Git"
+    'Node.js',
+    'Express',
+    'MongoDB',
+    'React',
+    'Redux Toolkit',
+    'Realtime Data',
+    'System Design',
+    'Python Automation',
+    'Socket.IO',
+    'Cloudinary',
+    'Stripe',
+    'Enterprise Security',
   ],
   highlights: [
     {
-      eyebrow: "Security First",
-      title: "Enterprise-Grade Authentication",
-      description: "Built robust authentication systems with JWT, OAuth2, and role-based access control for financial and healthcare applications.",
-      impact: "Reduced security vulnerabilities by 95%"
+      eyebrow: 'Security-first systems',
+      title: 'Backend APIs designed with real permission boundaries.',
+      description:
+        'At Dell Technologies, I engineered secure Node.js and Express services with scope-based access control to protect AI-driven 17G server management workflows.',
+      impact: 'Built for enterprise trust, granular control, and operational clarity.',
     },
     {
-      eyebrow: "Performance",
-      title: "Real-Time Data Processing",
-      description: "Developed high-throughput APIs handling 10k+ concurrent users with WebSocket integrations and optimized database queries.",
-      impact: "Improved response times by 70%"
+      eyebrow: 'Realtime product thinking',
+      title: 'Interfaces that stay readable while data keeps moving.',
+      description:
+        'I built React and Redux Toolkit experiences for Kafka Connectivity so customers could stream and visualize high-volume telemetry in real time.',
+      impact: 'Focused on clarity, responsiveness, and decision-ready information.',
     },
     {
-      eyebrow: "Scalability",
-      title: "Cloud-Native Architecture",
-      description: "Designed and deployed microservices on AWS with auto-scaling, load balancing, and comprehensive monitoring.",
-      impact: "Handled 500% traffic increase seamlessly"
-    }
+      eyebrow: 'Automation ownership',
+      title: 'Complex deployment workflows simplified into repeatable systems.',
+      description:
+        'I owned a Python automation framework for OpenManage Enterprise configuration, backup, and restoration across diverse environments.',
+      impact: 'Doubled deployment speed and reduced manual engineering effort by half.',
+    },
   ],
   experience: [
     {
-      company: "TechCorp Solutions",
-      role: "Senior Full Stack Developer",
-      period: "2022 - Present",
-      location: "Remote",
-      summary: "Leading development of enterprise web applications serving 50k+ users, focusing on security, performance, and user experience.",
+      company: 'Dell Technologies',
+      role: 'System Development Engineer 2',
+      period: 'Aug 2023 - Present',
+      location: 'Bengaluru, Karnataka',
+      summary:
+        'Building secure backend services, realtime observability experiences, and automation systems for OpenManage Enterprise and next-generation infrastructure workflows.',
       achievements: [
-        "Architected and implemented microservices reducing deployment time by 60%",
-        "Developed real-time dashboard processing 1M+ data points daily",
-        "Mentored junior developers and established coding standards",
-        "Implemented CI/CD pipelines reducing release cycles from weeks to hours"
+        'Designed a high-security backend API with scope-based access control using Node.js, Express, and MongoDB.',
+        'Contributed to 17G backend development and OpenManage Enterprise integration for enterprise hardware management.',
+        'Built a React and Redux Toolkit frontend service to manage Kafka Connectivity and visualize telemetry at scale.',
+        'Took full ownership of a Python automation framework that accelerated deployment and reduced operational effort.',
       ],
-      stack: ["React", "Node.js", "MongoDB", "AWS", "Docker", "TypeScript"]
+      stack: ['Node.js', 'Express', 'MongoDB', 'React', 'Redux Toolkit', 'Python', 'Kafka', 'OME'],
     },
     {
-      company: "InnovateLabs",
-      role: "Full Stack Developer",
-      period: "2020 - 2022",
-      location: "Bangalore, India",
-      summary: "Developed and maintained multiple client projects, specializing in MERN stack applications and API integrations.",
+      company: 'Draup',
+      role: 'Front End Developer Intern',
+      period: 'Feb 2023 - May 2023',
+      location: 'Remote / Bengaluru',
+      summary:
+        'Improved template workflows and frontend agility by reducing backend dependency for email template updates.',
       achievements: [
-        "Built RESTful APIs serving 10k+ requests per minute",
-        "Implemented payment gateways and third-party integrations",
-        "Optimized database queries improving performance by 40%",
-        "Collaborated with design team to implement pixel-perfect UIs"
+        'Migrated email templates from backend-controlled rendering to Postmark-based management.',
+        'Used JavaScript libraries to streamline template handling and speed up content updates.',
       ],
-      stack: ["React", "Express", "MongoDB", "PostgreSQL", "Stripe", "Redis"]
+      stack: ['JavaScript', 'Frontend Development', 'Postmark', 'Template Systems'],
     },
-    {
-      company: "StartupXYZ",
-      role: "Frontend Developer",
-      period: "2019 - 2020",
-      location: "Mumbai, India",
-      summary: "Focused on building responsive web applications and improving user experience for early-stage startup products.",
-      achievements: [
-        "Developed responsive web applications used by 5k+ users",
-        "Implemented A/B testing framework increasing conversion by 25%",
-        "Built component library reducing development time by 50%",
-        "Integrated analytics and user tracking systems"
-      ],
-      stack: ["React", "JavaScript", "CSS3", "Firebase", "Google Analytics"]
-    }
   ],
   projects: [
     {
-      name: "E-Commerce Platform",
-      category: "Full Stack",
-      tagline: "Modern e-commerce solution with real-time inventory",
-      description: "Complete e-commerce platform with user authentication, payment processing, inventory management, and admin dashboard. Features real-time inventory updates and order tracking.",
+      name: 'Shoppe',
+      category: 'Ecommerce Platform',
+      tagline: 'A full shopping flow with secure auth, admin operations, and polished discovery.',
+      description:
+        'Shoppe was built as an end-to-end MERN commerce experience focused on secure checkout, smooth browsing, and admin usability.',
       outcomes: [
-        "Processed 10k+ orders with 99.9% uptime",
-        "Implemented real-time inventory synchronization",
-        "Built comprehensive admin analytics dashboard",
-        "Integrated multiple payment gateways securely"
+        'Implemented JWT-based authentication and an administrative dashboard for order management.',
+        'Integrated Stripe for payments and Cloudinary for reliable image delivery and optimization.',
+        'Added pagination, fuzzy search, and multi-parameter filtering to improve product exploration.',
       ],
-      stack: ["React", "Node.js", "MongoDB", "Stripe", "Socket.io"],
-      href: "https://github.com/Shamsher2000/ecommerce-platform",
-      glow: "#3b82f6",
-      border: "#1d4ed8"
+      stack: ['React', 'Node.js', 'Express', 'MongoDB', 'Redux', 'Stripe', 'Cloudinary'],
+      href: 'https://github.com/Shamsher2000/onlineshoppingapp.git',
+      glow: 'rgba(255, 122, 89, 0.28)',
+      border: 'rgba(255, 122, 89, 0.22)',
     },
     {
-      name: "Task Management App",
-      category: "Productivity",
-      tagline: "Collaborative project management with real-time updates",
-      description: "Full-featured task management application with team collaboration, real-time updates, file sharing, and project analytics. Supports multiple workspaces and user roles.",
+      name: 'Chatly',
+      category: 'Realtime Chat App',
+      tagline: 'Live messaging designed around speed, presence, and expressive interaction.',
+      description:
+        'Chatly combines realtime communication patterns with a responsive UI so conversations stay fluid across text, media, and presence updates.',
       outcomes: [
-        "Used by 500+ teams for daily project management",
-        "Implemented real-time collaboration features",
-        "Built drag-and-drop interface for task organization",
-        "Added comprehensive reporting and analytics"
+        'Built live messaging and active user tracking with Socket.IO.',
+        'Enabled text, image, and emoji messaging using Multer and Cloudinary-backed uploads.',
+        'Managed complex UI synchronization with Redux for high-frequency interactions.',
       ],
-      stack: ["React", "Express", "PostgreSQL", "WebSocket", "Material-UI"],
-      href: "https://github.com/Shamsher2000/task-manager",
-      glow: "#10b981",
-      border: "#059669"
+      stack: ['React', 'Node.js', 'Express', 'MongoDB', 'Redux', 'Socket.IO', 'Cloudinary'],
+      href: 'https://github.com/Shamsher2000/chatapp.git',
+      glow: 'rgba(33, 189, 163, 0.24)',
+      border: 'rgba(33, 189, 163, 0.18)',
     },
     {
-      name: "Analytics Dashboard",
-      category: "Data Visualization",
-      tagline: "Real-time business intelligence platform",
-      description: "Interactive dashboard for business analytics with real-time data visualization, custom reports, and automated insights. Processes millions of data points daily.",
+      name: 'VocaLink',
+      category: 'AI Voice Assistant',
+      tagline: 'A multilingual voice-enabled virtual agent built with real interaction flow.',
+      description:
+        'VocaLink extends the MERN stack into speech-driven interaction with natural language controls, assistant customization, and realtime conversation support.',
       outcomes: [
-        "Visualized complex datasets for executive decision making",
-        "Implemented real-time data streaming and updates",
-        "Created custom chart components and visualizations",
-        "Built automated report generation system"
+        'Engineered speech-recognition flows for Indian languages using Web Speech API and Gemini Flash.',
+        'Built JSON-driven actions for search, media playback, date, weather, and calculator intents.',
+        'Stored assistant assets and user inputs with MongoDB and Cloudinary while keeping conversations smooth with Socket.IO.',
       ],
-      stack: ["React", "D3.js", "Node.js", "MongoDB", "Chart.js"],
-      href: "https://github.com/Shamsher2000/analytics-dashboard",
-      glow: "#f59e0b",
-      border: "#d97706"
-    }
+      stack: ['React', 'Node.js', 'Express', 'MongoDB', 'Redux', 'Socket.IO', 'Gemini', 'Cloudinary'],
+      href: 'https://github.com/Shamsher2000/aiassitant.git',
+      glow: 'rgba(140, 184, 255, 0.22)',
+      border: 'rgba(140, 184, 255, 0.2)',
+    },
   ],
   skillBuckets: [
     {
-      title: "Frontend Development",
-      items: ["React", "JavaScript", "TypeScript", "HTML5", "CSS3", "SASS"]
+      title: 'Frontend Experience',
+      items: ['React', 'Redux Toolkit', 'JavaScript (ES6+)', 'HTML5', 'CSS', 'Responsive UI', 'Tailwind CSS'],
     },
     {
-      title: "Backend Development",
-      items: ["Node.js", "Express", "Python", "Django", "REST APIs", "GraphQL"]
+      title: 'Backend Engineering',
+      items: ['Node.js', 'Express', 'MongoDB', 'Mongoose', 'SQL', 'REST APIs', 'Authentication'],
     },
     {
-      title: "Database & Cloud",
-      items: ["MongoDB", "PostgreSQL", "Redis", "AWS", "Docker", "Kubernetes"]
+      title: 'Realtime & Product Systems',
+      items: ['Socket.IO', 'Kafka Connectivity', 'Telemetry Visualization', 'Cloudinary', 'Stripe'],
     },
     {
-      title: "Tools & DevOps",
-      items: ["Git", "CI/CD", "Jest", "Webpack", "Linux", "Agile"]
-    }
+      title: 'Core Engineering',
+      items: ['Python', 'C/C++', 'System Design', 'DBMS', 'SDLC', 'Agile', 'Data Structures and Algorithms'],
+    },
   ],
   recruiterChecklist: [
-    "Strong foundation in both frontend and backend technologies",
-    "Experience with modern development practices and tools",
-    "Proven track record of delivering scalable solutions",
-    "Excellent problem-solving and communication skills",
-    "Passionate about clean code and user experience",
-    "Quick learner with adaptability to new technologies"
+    'Enterprise experience at Dell with visible ownership across backend, frontend, and automation.',
+    'MERN projects that show product thinking, API design, payments, realtime messaging, and AI features.',
+    'Comfortable with both systems-heavy contexts and recruiter-facing presentation quality.',
+    'Strong CS foundation with a 9.5 CGPA in Computer Science Engineering.',
   ],
   education: {
-    degree: "Bachelor of Technology in Computer Science",
-    institution: "Indian Institute of Technology",
-    score: "8.5/10 CGPA",
-    period: "2015 - 2019"
-  }
+    institution: 'Dayananda Sagar College of Engineering',
+    degree: 'B.E. in Computer Science Engineering',
+    score: '9.5 CGPA',
+    period: 'Aug 2019 - Jul 2023',
+    location: 'Bengaluru, Karnataka',
+  },
 };
-
-export default staticPortfolioData;
