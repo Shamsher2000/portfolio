@@ -13,8 +13,9 @@ export function useResumeDownload() {
     setDownloadError(null);
 
     try {
-      // Use environment variable for API URL
-      const API_BASE = import.meta.env.VITE_API_URL || import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+      // Use environment variable for API URL, otherwise fallback to same host on port 5000
+      const defaultBackendUrl = `${window.location.protocol}//${window.location.hostname}:5000`;
+      const API_BASE = import.meta.env.VITE_API_URL || import.meta.env.VITE_BACKEND_URL || defaultBackendUrl;
       
       // Fetch the resume from the API endpoint
       const response = await fetch(`${API_BASE}/api/resume/download`);
@@ -70,8 +71,9 @@ export function useResumeInfo() {
     setError(null);
 
     try {
-      // Use environment variable for API URL
-      const API_BASE = import.meta.env.VITE_API_URL || import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+      // Use environment variable for API URL, otherwise fallback to same host on port 5000
+      const defaultBackendUrl = `${window.location.protocol}//${window.location.hostname}:5000`;
+      const API_BASE = import.meta.env.VITE_API_URL || import.meta.env.VITE_BACKEND_URL || defaultBackendUrl;
       
       const response = await fetch(`${API_BASE}/api/resume/info`);
 
@@ -111,8 +113,9 @@ export function usePortfolioReseed() {
     setReseedError(null);
 
     try {
-      // Use environment variable for API URL
-      const API_BASE = import.meta.env.VITE_API_URL || import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+      // Use environment variable for API URL, otherwise fallback to same host on port 5000
+      const defaultBackendUrl = `${window.location.protocol}//${window.location.hostname}:5000`;
+      const API_BASE = import.meta.env.VITE_API_URL || import.meta.env.VITE_BACKEND_URL || defaultBackendUrl;
       
       const response = await fetch(`${API_BASE}/api/admin/reseed`, {
         method: 'POST',

@@ -250,6 +250,26 @@ RESUME_PDF_DIR=public/resume
 PRIMARY_RESUME_NAME=resume.pdf
 ```
 
+## ⚙️ Separate Frontend and Backend Deployment
+
+This repository already contains fully separated `client/` and `server/` services.
+
+### Backend
+- Deploy the `server/` folder as its own repository to GitHub: `portfolio-backend`
+- Include `server/package.json`, `server/src/`, `server/.env.example`, and any required resume files
+- Set backend environment variables like `MONGO_URI` and `PORT`
+- After deployment, use the backend URL in Netlify as `VITE_API_URL`
+
+### Frontend (Netlify)
+- Keep this repo as the frontend repo, or use the `client/` folder as your Netlify source
+- Netlify should build with:
+  - `cd client && npm install && npm run build`
+  - Publish directory: `client/dist`
+- In Netlify site settings, add:
+  - `VITE_API_URL=https://your-backend-url.com`
+- Do not add `PORT` to the Netlify frontend environment variables.
+- The frontend will then call your backend directly for all `/api/*` requests.
+
 ## 🐛 Troubleshooting
 
 **Issue**: "No PDF found" message on startup
