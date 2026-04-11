@@ -11,7 +11,7 @@
   functions = "netlify/functions"
 
   # Environment settings
-  environment = { NODE_VERSION = "18.17.1" }
+  environment = { NODE_VERSION = "20.19.0" }
 
 # Redirect all non-file requests to index.html for React Router
 [[redirects]]
@@ -40,11 +40,14 @@
 [context.production]
   command = "cd client && npm install && npm run build"
   publish = "client/dist"
+  environment = { NODE_VERSION = "20.19.0" }
 
 [context.preview]
   command = "cd client && npm install && npm run build"
   publish = "client/dist"
+  environment = { NODE_VERSION = "20.19.0" }
 
 [context.develop]
   command = "cd client && npm install && npm run dev"
   publish = "client/dist"
+  environment = { NODE_VERSION = "20.19.0" }

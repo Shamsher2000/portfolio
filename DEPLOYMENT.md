@@ -38,9 +38,9 @@ Deploy frontend to Netlify, keep backend on your current server or other platfor
    - Select your `portfolio` repository
 
 2. **Configure Build Settings**
-   - **Build command**: `npm run build --workspace client`
+   - **Build command**: `cd client && npm install && npm run build`
    - **Publish directory**: `client/dist`
-   - **Node version**: 18.17.1
+   - **Node version**: **20.19.0** (Required for Vite compatibility)
 
 3. **Add Environment Variables**
    - In Netlify Dashboard → Site Settings → Build & deploy → Environment
@@ -287,6 +287,12 @@ After initial setup, your deployment workflow is simple:
 - Netlify/Railway needs Node.js
 - Ensure `netlify.toml` specifies `NODE_VERSION = "18.17.1"`
 - Check platform's Node version settings
+
+**"You are using Node.js 18.17.1. Vite requires Node.js version 20.19+ or 22.12+"**
+- Vite requires Node.js 20.19+ for compatibility
+- The `netlify.toml` has been updated to use Node.js 20.19.0
+- Redeploy to apply the Node.js version fix
+- Check Netlify build settings: Node version should be 20.19.0
 
 **"Command failed with exit code 1: npm run build --workspace client"**
 - This is a workspace command issue

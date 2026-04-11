@@ -18,7 +18,7 @@ Your project now has **everything needed** to deploy to Netlify! Here's what was
 **What it does:**
 ```toml
 [build]
-  command = "npm run build --workspace client"
+  command = "cd client && npm install && npm run build"
   publish = "client/dist"
 ```
 This tells Netlify exactly how to build and what to deploy!
@@ -226,6 +226,11 @@ NODE_ENV = production
    - This was a workspace command issue
    - Fixed in `netlify.toml` - now uses: `cd client && npm install && npm run build`
    - Redeploy to apply the fix
+
+3. **"You are using Node.js 18.17.1. Vite requires Node.js version 20.19+ or 22.12+"?**
+   - Vite requires Node.js 20.19+ for compatibility
+   - Updated `netlify.toml` to use Node.js 20.19.0
+   - Redeploy to apply the Node.js version fix
 
 3. **API not working?**
    - Is backend URL correct in environment variables?

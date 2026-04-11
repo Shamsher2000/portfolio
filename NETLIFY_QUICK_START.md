@@ -23,9 +23,9 @@ Go to [Netlify.com](https://netlify.com):
 In Netlify dashboard:
 
 **Site Settings → Build & deploy → Build settings**
-- Build command: `npm run build --workspace client`
+- Build command: `cd client && npm install && npm run build`
 - Publish directory: `client/dist`
-- Node.js version: 18.17.1
+- Node.js version: **20.19.0** (Required for Vite)
 
 Click "Save"
 
