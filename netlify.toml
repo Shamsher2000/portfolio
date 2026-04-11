@@ -10,6 +10,7 @@
   # Environment settings
 [build.environment]
   NODE_VERSION = "20.19.0"
+  SECRETS_SCAN_OMIT_KEYS = "PORT"
 
 # Redirect all non-file requests to index.html for React Router
 [[redirects]]
