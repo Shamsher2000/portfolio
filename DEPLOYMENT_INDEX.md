@@ -154,8 +154,11 @@ Final Steps:
 
 ### Frontend (In Netlify Dashboard)
 ```
-REACT_APP_BACKEND_URL = https://your-backend-url.com
+VITE_API_URL = https://your-backend-url.com
+VITE_BACKEND_URL = https://your-backend-url.com
 ```
+
+**IMPORTANT:** Use `VITE_` prefix, not `REACT_APP_`! Vite requires this prefix to expose variables to your React app.
 
 ### Backend (In Railway/Render)
 ```
@@ -219,7 +222,12 @@ NODE_ENV = production
    - Run: `npm run build --workspace client`
    - Does it work locally?
 
-2. **API not working?**
+2. **"Command failed with exit code 1: npm run build --workspace client"?**
+   - This was a workspace command issue
+   - Fixed in `netlify.toml` - now uses: `cd client && npm install && npm run build`
+   - Redeploy to apply the fix
+
+3. **API not working?**
    - Is backend URL correct in environment variables?
    - Is CORS configured on backend?
    - Check Network tab in DevTools (F12)

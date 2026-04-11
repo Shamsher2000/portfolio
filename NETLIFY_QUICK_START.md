@@ -35,8 +35,11 @@ Click "Save"
 
 Add these variables:
 ```
-REACT_APP_BACKEND_URL = https://your-backend-url.com
+VITE_API_URL = https://your-backend-url.com
+VITE_BACKEND_URL = https://your-backend-url.com
 ```
+
+**IMPORTANT:** Use `VITE_` prefix for frontend environment variables! This is required for Vite to expose them to your React app.
 
 (Leave other variables empty for now, we'll update after backend deployment)
 

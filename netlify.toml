@@ -1,15 +1,15 @@
 # Netlify Configuration for Portfolio Website
 
 [build]
-  # Build command to generate the frontend
-  command = "npm run build --workspace client"
-  
+  # Build command - changed to work better with Netlify
+  command = "cd client && npm install && npm run build"
+
   # Directory to deploy
   publish = "client/dist"
-  
+
   # Directory for serverless functions (optional)
   functions = "netlify/functions"
-  
+
   # Environment settings
   environment = { NODE_VERSION = "18.17.1" }
 
@@ -38,13 +38,13 @@
 
 # Context-specific settings
 [context.production]
-  command = "npm run build --workspace client"
+  command = "cd client && npm install && npm run build"
   publish = "client/dist"
 
 [context.preview]
-  command = "npm run build --workspace client"
+  command = "cd client && npm install && npm run build"
   publish = "client/dist"
 
 [context.develop]
-  command = "npm run client"
+  command = "cd client && npm install && npm run dev"
   publish = "client/dist"

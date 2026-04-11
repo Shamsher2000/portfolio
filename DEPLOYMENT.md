@@ -216,6 +216,8 @@ VITE_API_URL=https://your-backend-url.com
 VITE_BACKEND_URL=https://your-backend-url.com
 ```
 
+**IMPORTANT:** Vite requires the `VITE_` prefix to expose environment variables to your React app. Don't use `REACT_APP_` prefix with Vite!
+
 ### Backend (.env files in `server/`)
 ```env
 MONGO_URI=your_mongodb_connection_string
@@ -285,6 +287,11 @@ After initial setup, your deployment workflow is simple:
 - Netlify/Railway needs Node.js
 - Ensure `netlify.toml` specifies `NODE_VERSION = "18.17.1"`
 - Check platform's Node version settings
+
+**"Command failed with exit code 1: npm run build --workspace client"**
+- This is a workspace command issue
+- The `netlify.toml` has been updated to use: `cd client && npm install && npm run build`
+- If you still get this error, try redeploying (the fix is already in place)
 
 **"Cannot find module 'express'"**
 - Ensure dependencies are installed in server
