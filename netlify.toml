@@ -1,0 +1,50 @@
+# Netlify Configuration for Portfolio Website
+
+[build]
+  # Build command to generate the frontend
+  command = "npm run build --workspace client"
+  
+  # Directory to deploy
+  publish = "client/dist"
+  
+  # Directory for serverless functions (optional)
+  functions = "netlify/functions"
+  
+  # Environment settings
+  environment = { NODE_VERSION = "18.17.1" }
+
+# Redirect all non-file requests to index.html for React Router
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# API redirects to backend (update BACKEND_URL with your deployed server)
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# Cache rules
+[[headers]]
+  for = "/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Context-specific settings
+[context.production]
+  command = "npm run build --workspace client"
+  publish = "client/dist"
+
+[context.preview]
+  command = "npm run build --workspace client"
+  publish = "client/dist"
+
+[context.develop]
+  command = "npm run client"
+  publish = "client/dist"
