@@ -1,35 +1,21 @@
-# Netlify Configuration for Portfolio Website
+# Netlify Configuration for Frontend-Only Portfolio Website
 
 [build]
-  # Build command - changed to work better with Netlify
-  command = "cd client && npm install && npm run build"
+  # Install client dependencies and build the React app
+  command = "npm install --prefix client && npm run build --prefix client"
 
-  # Directory to deploy
+  # Directory to deploy (built React app)
   publish = "client/dist"
 
-  # Directory for serverless functions (optional)
-  functions = "netlify/functions"
-
   # Environment settings
-  # PORT is not required for the frontend build and can trigger a false positive
-  # in Netlify's secret scan when it is present in build environment output.
 [build.environment]
   NODE_VERSION = "20.19.0"
-  SECRETS_SCAN_OMIT_KEYS = "PORT"
 
 # Redirect all non-file requests to index.html for React Router
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-
-# No API proxy is configured here because the frontend uses VITE_API_URL
-# to call your separate backend service directly.
-# If you want Netlify to proxy /api/* to your backend, uncomment and update the block below:
-# [[redirects]]
-#   from = "/api/*"
-#   to = "https://your-backend-url.com/api/:splat"
-#   status = 200
 
 # Cache rules
 [[headers]]
@@ -41,25 +27,3 @@
   for = "/*.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
-
-# Context-specific settings
-[context.production]
-  command = "cd client && npm install && npm run build"
-  publish = "client/dist"
-[context.production.environment]
-  NODE_VERSION = "20.19.0"
-  SECRETS_SCAN_OMIT_KEYS = "PORT"
-
-[context.preview]
-  command = "cd client && npm install && npm run build"
-  publish = "client/dist"
-[context.preview.environment]
-  NODE_VERSION = "20.19.0"
-  SECRETS_SCAN_OMIT_KEYS = "PORT"
-
-[context.develop]
-  command = "cd client && npm install && npm run dev"
-  publish = "client/dist"
-[context.develop.environment]
-  NODE_VERSION = "20.19.0"
-  SECRETS_SCAN_OMIT_KEYS = "PORT"

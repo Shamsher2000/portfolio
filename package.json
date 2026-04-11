@@ -2,20 +2,12 @@
   "name": "shamsher-portfolio",
   "private": true,
   "version": "1.0.0",
-  "description": "Animated MERN-style portfolio for Shamsher Tiwari",
-  "workspaces": [
-    "client",
-    "server"
-  ],
+  "description": "Animated portfolio website for Shamsher Tiwari",
   "scripts": {
-    "dev": "concurrently -n client,server -c \"#f97316,#0ea5e9\" \"npm run dev --workspace client\" \"npm run dev --workspace server\"",
-    "build": "npm run build --workspace client",
-    "build:client": "npm run build --workspace client",
-    "build:server": "npm run build --workspace server",
-    "start": "npm run start --workspace server",
-    "reseed": "node server/src/data/seedPortfolio.js"
+    "dev": "cd client && npm run dev",
+    "build": "cd client && npm run build",
+    "preview": "cd client && npm run preview",
+    "start": "cd client && npm run preview"
   },
-  "devDependencies": {
-    "concurrently": "^9.2.1"
-  }
+  "devDependencies": {}
 }

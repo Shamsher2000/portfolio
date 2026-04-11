@@ -1,16 +1,175 @@
-# Portfolio Website with Resume PDF Seeding
+# Portfolio Website
 
-A modern, full-stack portfolio website that automatically syncs with your resume PDF. Write your resume once, and watch your portfolio update instantly.
+A modern, animated portfolio website built with React and Vite. Features smooth animations, responsive design, and static data for easy deployment.
 
 ## ✨ Features
 
-- **PDF-Based Data Seeding**: Automatically extracts and populates portfolio data from your resume PDF
-- **Live Resume Download**: Users can download the latest resume directly from your portfolio
-- **Automatic Hot Reload**: No server restart needed when you update your resume PDF
-- **Fallback System**: Gracefully handles missing PDFs with built-in default data
-- **Real-time Synchronization**: Backend and frontend stay perfectly in sync
+- **Static Data**: No backend required - all data is included in the build
+- **Resume Download**: Direct download of resume PDF from the website
 - **Responsive Design**: Beautiful UI with Framer Motion animations
-- **Full-Stack Architecture**: Node.js/Express backend, React frontend with Vite
+- **Fast Loading**: Optimized build with code splitting and lazy loading
+- **SEO Friendly**: Static site generation for better search engine visibility
+
+## 🏗️ Project Structure
+
+```
+.
+├── client/                          # React frontend
+│   ├── src/
+│   │   ├── App.jsx                 # Main component
+│   │   ├── main.jsx                # Entry point
+│   │   ├── styles.css              # Global styles
+│   │   ├── data/
+│   │   │   └── staticPortfolio.js  # Static portfolio data
+│   │   ├── components/
+│   │   │   ├── Reveal.jsx          # Scroll reveal animation
+│   │   │   ├── SectionHeading.jsx  # Section headers
+│   │   │   └── TechBackground.jsx  # Tech stack background
+│   │   └── hooks/
+│   │       └── useResume.js        # Resume download hooks
+│   ├── public/
+│   │   ├── resume.pdf              # Resume PDF file
+│   │   └── ...                     # Other static assets
+│   ├── index.html
+│   ├── package.json
+│   └── vite.config.js
+│
+├── netlify.toml                     # Netlify deployment config
+└── README.md                        # This file
+```
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Shamsher2000/portfolio.git
+   cd portfolio
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Add your resume PDF**
+   - Place your resume as `client/public/resume.pdf`
+   - Update the static data in `client/src/data/staticPortfolio.js` with your information
+
+4. **Start development server**
+   ```bash
+   npm run dev
+   ```
+
+5. **Open in browser**
+   ```
+   http://localhost:5173/
+   ```
+
+## 📋 Customization
+
+### Update Portfolio Data
+
+Edit `client/src/data/staticPortfolio.js` to customize:
+- Personal information
+- Work experience
+- Projects
+- Skills
+- Education
+- Contact details
+
+### Update Resume
+
+Replace `client/public/resume.pdf` with your resume file.
+
+## 🔧 Available Commands
+
+```bash
+npm run dev        # Start development server
+npm run build      # Build for production
+npm run preview    # Preview production build
+```
+
+## 🎨 Features in Detail
+
+### Static Data Architecture
+- All portfolio data is stored in `staticPortfolio.js`
+- No API calls or backend required
+- Fast loading and reliable deployment
+
+### Resume Download
+- Direct download from `/resume.pdf`
+- No server-side processing needed
+
+### Components
+- **Reveal**: Scroll-triggered animations for sections
+- **SectionHeading**: Consistent section headers
+- **TechBackground**: Animated technology background
+
+## 📦 Tech Stack
+
+### Frontend
+- **React 18**: UI library
+- **Vite**: Fast build tool and dev server
+- **Framer Motion**: Smooth animations
+- **Lucide React**: Beautiful icons
+
+### Deployment
+- **Netlify**: Static site hosting
+- **Responsive Design**: Mobile-first approach
+
+## 🚀 Deployment to Netlify
+
+1. **Connect your GitHub repo** to Netlify
+2. **Build settings**:
+   - Build command: `npm run build`
+   - Publish directory: `client/dist`
+3. **Deploy**: Netlify will automatically build and deploy your site
+
+## 🐛 Troubleshooting
+
+**Issue**: Resume download not working
+- **Solution**: Ensure `client/public/resume.pdf` exists and is accessible
+
+**Issue**: Data not updating after changes
+- **Solution**: Update `client/src/data/staticPortfolio.js` and rebuild
+
+**Issue**: Build failing
+- **Solution**: Check Node.js version (v18+) and run `npm install`
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is open source. Feel free to use it for your own portfolio.
+
+## 👤 Author
+
+**Shamsher Tiwari**
+- Email: contact@shamsher.dev
+- LinkedIn: [linkedin.com/in/shamsher-tiwari-a2314620b/](https://www.linkedin.com/in/shamsher-tiwari-a2314620b/)
+- GitHub: [@Shamsher2000](https://github.com/Shamsher2000)
+
+## 🙏 Acknowledgments
+
+- Built with modern React and Vite
+- Inspired by clean, animated portfolio designs
+- Community feedback and contributions
+
+---
+
+**Made with ❤️ by Shamsher Tiwari**
 
 ## 🏗️ Project Structure
 

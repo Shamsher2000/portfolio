@@ -24,6 +24,7 @@ import Reveal from './components/Reveal.jsx';
 import SectionHeading from './components/SectionHeading.jsx';
 import TechBackground from './components/TechBackground.jsx';
 import { useResumeDownload } from './hooks/useResume.js';
+import { staticPortfolioData } from './data/staticPortfolio.js';
 
 // Memoized external link pill component
 const ExternalLinkPillMemo = memo(({ link, compact = false }) => {
@@ -202,34 +203,13 @@ export default function App() {
   const handleMenuClose = useCallback(() => setIsMenuOpen(false), []);
 
   useEffect(() => {
-    const controller = new AbortController();
-
-    async function loadProfile() {
-      try {
-        // Use environment variable for API URL, otherwise fallback to same host on port 5000
-        const defaultBackendUrl = `${window.location.protocol}//${window.location.hostname}:5000`;
-        const API_BASE = import.meta.env.VITE_API_URL || import.meta.env.VITE_BACKEND_URL || defaultBackendUrl;
-        
-        const response = await fetch(`${API_BASE}/api/profile`, {
-          signal: controller.signal,
-        });
-
-        if (!response.ok) {
-          throw new Error('Unable to load profile data.');
-        }
-
-        const data = await response.json();
-        setProfile(data);
-      } catch (loadError) {
-        if (loadError.name !== 'AbortError') {
-          setError(loadError.message);
-        }
-      }
+    // Load static portfolio data instead of API call
+    try {
+      setProfile(staticPortfolioData);
+    } catch (loadError) {
+      console.error('Error loading portfolio data:', loadError);
+      setError(loadError.message);
     }
-
-    loadProfile();
-
-    return () => controller.abort();
   }, []);
 
   useEffect(() => {
