@@ -216,7 +216,7 @@ VITE_API_URL=https://your-backend-url.com
 VITE_BACKEND_URL=https://your-backend-url.com
 ```
 
-**IMPORTANT:** Vite requires the `VITE_` prefix to expose environment variables to your React app. Don't use `REACT_APP_` prefix with Vite!
+**CRITICAL:** These environment variables MUST be set in Netlify dashboard, or your site will show "Unexpected token '<', "<!doctype "... is not valid JSON" errors. This happens because API calls return HTML error pages instead of JSON data.
 
 ### Backend (.env files in `server/`)
 ```env
@@ -288,16 +288,22 @@ After initial setup, your deployment workflow is simple:
 - Ensure `netlify.toml` specifies `NODE_VERSION = "18.17.1"`
 - Check platform's Node version settings
 
-**"You are using Node.js 18.17.1. Vite requires Node.js version 20.19+ or 22.12+"**
-- Vite requires Node.js 20.19+ for compatibility
-- The `netlify.toml` has been updated to use Node.js 20.19.0
-- Redeploy to apply the Node.js version fix
-- Check Netlify build settings: Node version should be 20.19.0
+**"Unexpected token '<', "<!doctype "... is not valid JSON"?**
+- This error occurs when API calls return HTML instead of JSON
+- **Cause:** Missing or incorrect `VITE_API_URL` / `VITE_BACKEND_URL` environment variables
+- **Fix:** Set the environment variables in Netlify dashboard with your backend URL
+- **Example:** `VITE_API_URL = https://portfolio-api.onrender.com`
+- Redeploy after setting the variables
 
-**"Command failed with exit code 1: npm run build --workspace client"**
-- This is a workspace command issue
-- The `netlify.toml` has been updated to use: `cd client && npm install && npm run build`
-- If you still get this error, try redeploying (the fix is already in place)
+**"TypeError: manualChunks is not a function" or "Invalid output options"**
+- The `manualChunks` configuration was using object syntax instead of function syntax
+- The Vite config has been updated to use the correct function syntax
+- Redeploy to apply the manualChunks fix
+
+**"terser not found" or "esbuild not found"**
+- Vite 8.x has different dependency requirements
+- Downgraded to stable Vite 5.4.10 which includes all necessary dependencies
+- Redeploy to apply the Vite version fix
 
 **"Cannot find module 'express'"**
 - Ensure dependencies are installed in server

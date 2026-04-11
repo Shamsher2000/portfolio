@@ -29,19 +29,28 @@ In Netlify dashboard:
 
 Click "Save"
 
-### 3. Add Environment Variables (3 min)
+### 3. Add Environment Variables (CRITICAL - 3 min)
 
-**Site Settings → Build & deploy → Environment**
+**⚠️ IMPORTANT:** Without these variables, your site will show "Unexpected token '<'" errors!
 
-Add these variables:
+**Netlify Dashboard → Site Settings → Build & deploy → Environment**
+
+Add these variables (replace with your actual backend URL):
 ```
 VITE_API_URL = https://your-backend-url.com
 VITE_BACKEND_URL = https://your-backend-url.com
 ```
 
-**IMPORTANT:** Use `VITE_` prefix for frontend environment variables! This is required for Vite to expose them to your React app.
+**Example:**
+```
+VITE_API_URL = https://portfolio-api.onrender.com
+VITE_BACKEND_URL = https://portfolio-api.onrender.com
+```
 
-(Leave other variables empty for now, we'll update after backend deployment)
+**Why this is critical:**
+- Your frontend needs to know where your backend API is located
+- Without these variables, API calls fail and return HTML error pages
+- This causes the "Unexpected token '<'" JSON parsing error
 
 ### 4. Deploy Backend (3 min)
 

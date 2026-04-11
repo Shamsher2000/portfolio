@@ -227,10 +227,22 @@ NODE_ENV = production
    - Fixed in `netlify.toml` - now uses: `cd client && npm install && npm run build`
    - Redeploy to apply the fix
 
-3. **"You are using Node.js 18.17.1. Vite requires Node.js version 20.19+ or 22.12+"?**
-   - Vite requires Node.js 20.19+ for compatibility
-   - Updated `netlify.toml` to use Node.js 20.19.0
-   - Redeploy to apply the Node.js version fix
+3. **"TypeError: manualChunks is not a function"?**
+   - Vite configuration issue with manualChunks syntax
+   - Fixed in `client/vite.config.js` - now uses function syntax
+   - Redeploy to apply the fix
+
+4. **"terser not found" or "esbuild not found"?**
+   - Vite 8.x dependency issues
+   - Downgraded to stable Vite 5.4.10
+   - Redeploy to apply the Vite version fix
+
+5. **"Unexpected token '<', "<!doctype "... is not valid JSON"?**
+   - This error occurs when API calls return HTML instead of JSON
+   - **Cause:** Missing `VITE_API_URL` / `VITE_BACKEND_URL` environment variables in Netlify
+   - **Fix:** Set environment variables in Netlify dashboard with your backend URL
+   - Example: `VITE_API_URL = https://portfolio-api.onrender.com`
+   - Redeploy after setting the variables
 
 3. **API not working?**
    - Is backend URL correct in environment variables?
