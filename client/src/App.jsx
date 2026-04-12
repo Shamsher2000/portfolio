@@ -335,6 +335,10 @@ const HeroSection = memo(({ profile, scrollTransforms, onMenuClose }) => (
         <div className="hero-node hero-node--two" />
         <div className="hero-node hero-node--three" />
         <div className="hero-node hero-node--four" />
+        <div className="hero-node hero-node--five" />
+        <div className="hero-node hero-node--six" />
+        <div className="hero-node hero-node--seven" />
+        <div className="hero-node hero-node--eight" />
         <div className="hero-core">
           <strong>AI</strong>
           <span>Scroll-driven tech storytelling</span>
@@ -350,7 +354,7 @@ const HeroSection = memo(({ profile, scrollTransforms, onMenuClose }) => (
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       >
-        <span className="card-kicker">Recruiter Snapshot</span>
+        <span className="card-kicker card-kicker-dark">Recruiter Snapshot</span>
         <h2>{profile.personal.title}</h2>
         <p>{profile.personal.availability}</p>
 
@@ -391,23 +395,23 @@ const HeroSection = memo(({ profile, scrollTransforms, onMenuClose }) => (
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       >
-        <span className="card-kicker">Signal Map</span>
+        <span className="card-kicker card-kicker-dark">Signal Map</span>
         <ul>
           <li>
             <ShieldCheck size={16} />
-            <span>Security-minded backend thinking</span>
+            <span className="signal-item-text">Security-minded backend thinking</span>
           </li>
           <li>
             <Monitor size={16} />
-            <span>High-volume UI and data visualization</span>
+            <span className="signal-item-text">High-volume UI and data visualization</span>
           </li>
           <li>
             <Workflow size={16} />
-            <span>Automation-first ownership mindset</span>
+            <span className="signal-item-text">Automation-first ownership mindset</span>
           </li>
           <li>
             <Sparkles size={16} />
-            <span>Premium presentation for recruiter impact</span>
+            <span className="signal-item-text">Premium presentation for recruiter impact</span>
           </li>
         </ul>
       </motion.article>

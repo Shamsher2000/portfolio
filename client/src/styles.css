@@ -390,6 +390,9 @@ img {
   padding: 0 1.2rem;
   border-radius: 999px;
   font-weight: 700;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
 .primary-button {
@@ -425,11 +428,19 @@ img {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  color: rgba(16, 32, 56, 0.62);
+  color: rgba(16, 56, 56, 0.62);
   font-size: 0.8rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   font-weight: 800;
+}
+
+.card-kicker-dark {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.signal-item-text {
+  color: #081528;
 }
 
 .hero-copy h1,
@@ -483,6 +494,9 @@ img {
   border: 1px solid rgba(72, 108, 159, 0.12);
   color: var(--text);
   backdrop-filter: blur(12px);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
 .link-pill.compact {
@@ -593,7 +607,7 @@ img {
   font-size: 0.72rem;
   line-height: 1.5;
   text-align: center;
-  color: rgba(243, 251, 255, 0.7);
+  color: rgba(243, 251, 255, 0.85);
 }
 
 .hero-node {
@@ -604,7 +618,7 @@ img {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   background: linear-gradient(135deg, var(--accent), var(--accent-teal));
-  box-shadow: 0 0 0 10px rgba(24, 207, 255, 0.08), 0 0 20px rgba(24, 207, 255, 0.24);
+  box-shadow: 0 0 0 12px rgba(24, 207, 255, 0.12), 0 0 24px rgba(24, 207, 255, 0.3);
   animation: techPulse 4.4s ease-in-out infinite;
 }
 
@@ -631,12 +645,36 @@ img {
   animation-delay: 2s;
 }
 
+.hero-node--five {
+  top: 8rem;
+  right: 4rem;
+  animation-delay: 2.6s;
+}
+
+.hero-node--six {
+  top: 18rem;
+  left: 6rem;
+  animation-delay: 3.2s;
+}
+
+.hero-node--seven {
+  right: 8rem;
+  bottom: 6rem;
+  animation-delay: 3.8s;
+}
+
+.hero-node--eight {
+  left: 4rem;
+  bottom: 8rem;
+  animation-delay: 4.4s;
+}
+
 .hero-code-pill {
   padding: 0.55rem 0.85rem;
   border-radius: 999px;
   border: 1px solid rgba(124, 225, 255, 0.18);
   background: rgba(7, 19, 37, 0.72);
-  color: rgba(243, 251, 255, 0.78);
+  color: rgba(243, 251, 255, 0.9);
   font-size: 0.76rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -694,7 +732,7 @@ img {
 .signal-card li span,
 .project-description,
 .contact-panel p {
-  color: rgba(245, 247, 251, 0.75);
+  color: white;
 }
 
 .metric-grid {
@@ -1149,12 +1187,21 @@ img {
   line-height: 0.97;
 }
 
+.contact-panel p {
+  color: white;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
 .education-card {
   margin-top: 1.4rem;
   padding: 1rem;
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.12);
   box-shadow: none;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .education-card div {
@@ -1190,6 +1237,8 @@ img {
   border-color: rgba(255, 255, 255, 0.12);
   color: var(--text-inverse);
   box-shadow: none;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .site-footer {
@@ -1345,6 +1394,12 @@ img {
 
   .timeline-topline {
     flex-direction: column;
+  }
+
+  .contact-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
   }
 }
 
