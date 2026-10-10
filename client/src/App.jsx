@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo, memo, useCallback } from 'react';
-import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
+import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import {
   ArrowRight,
   Cpu,
@@ -22,7 +22,7 @@ import {
 } from 'lucide-react';
 import Reveal from './components/Reveal.jsx';
 import SectionHeading from './components/SectionHeading.jsx';
-import TechBackground from './components/TechBackground.jsx';
+import ScrollScene3D from './components/ScrollScene3D.jsx';
 import { useResumeDownload } from './hooks/useResume.js';
 import { staticPortfolioData } from './data/staticPortfolio.js';
 
@@ -164,18 +164,15 @@ const MobileMenu = memo(({ isOpen, onClose, profile, onDownload, isDownloading }
 MobileMenu.displayName = 'MobileMenu';
 
 export default function App() {
-  const [profile, setProfile] = useState(null);
-  const [error, setError] = useState('');
+  const profile = staticPortfolioData;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll();
   const { downloadResume, isDownloading } = useResumeDownload();
   
   // All useTransform calls must be at the top level, not inside useMemo
   const heroY = useTransform(scrollYProgress, [0, 0.2], [0, -100]);
   const heroScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.96]);
-  const meshY = useTransform(scrollYProgress, [0, 1], [0, -180]);
-  const meshRotate = useTransform(scrollYProgress, [0, 1], [0, 7]);
-  const streamY = useTransform(scrollYProgress, [0, 1], [0, 120]);
   const orbitY = useTransform(scrollYProgress, [0, 1], [0, -150]);
   const orbitScale = useTransform(scrollYProgress, [0, 0.45, 1], [1, 1.06, 1.14]);
   const impactY = useTransform(scrollYProgress, [0.08, 0.26], [60, 0]);
@@ -187,30 +184,18 @@ export default function App() {
   const scrollTransforms = useMemo(() => ({
     heroY,
     heroScale,
-    meshY,
-    meshRotate,
-    streamY,
     orbitY,
     orbitScale,
     impactY,
     projectsY,
     skillsY,
     contactY,
-  }), [heroY, heroScale, meshY, meshRotate, streamY, orbitY, orbitScale, impactY, projectsY, skillsY, contactY]);
+    disabled: shouldReduceMotion,
+  }), [heroY, heroScale, orbitY, orbitScale, impactY, projectsY, skillsY, contactY, shouldReduceMotion]);
 
   // Memoize callbacks to prevent re-renders
   const handleMenuOpen = useCallback(() => setIsMenuOpen(true), []);
   const handleMenuClose = useCallback(() => setIsMenuOpen(false), []);
-
-  useEffect(() => {
-    // Load static portfolio data instead of API call
-    try {
-      setProfile(staticPortfolioData);
-    } catch (loadError) {
-      console.error('Error loading portfolio data:', loadError);
-      setError(loadError.message);
-    }
-  }, []);
 
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? 'hidden' : '';
@@ -219,45 +204,24 @@ export default function App() {
     };
   }, [isMenuOpen]);
 
-  if (error) {
-    return (
-      <div className="status-screen">
-        <div className="status-card">
-          <Sparkles size={28} />
-          <h1>Something interrupted the launch.</h1>
-          <p>{error}</p>
-          <button type="button" className="primary-button" onClick={() => window.location.reload()}>
-            Try Again
-          </button>
-        </div>
-      </div>
-    );
-  }
+  useEffect(() => {
+    const targetId = window.location.hash.slice(1);
+    if (!targetId) return undefined;
 
-  if (!profile) {
-    return (
-      <div className="status-screen">
-        <div className="status-card loading-card">
-          <div className="loader-ring" />
-          <p>Composing an animated recruiter-ready experience...</p>
-        </div>
-      </div>
-    );
-  }
+    const frameId = window.requestAnimationFrame(() => {
+      document.getElementById(targetId)?.scrollIntoView({ block: 'start' });
+    });
+
+    return () => window.cancelAnimationFrame(frameId);
+  }, []);
 
   return (
     <div className="page-shell">
       <motion.div className="scroll-progress" style={{ scaleX: scrollYProgress }} />
-      <TechBackground meshY={scrollTransforms.meshY} meshRotate={scrollTransforms.meshRotate} streamY={scrollTransforms.streamY} />
+      <ScrollScene3D />
       <div className="ambient ambient-left" />
       <div className="ambient ambient-right" />
       <div className="grid-sheen" />
-      <div className="story-rail" aria-hidden="true">
-        <span>scroll signal</span>
-        <div className="story-rail__track">
-          <motion.div className="story-rail__progress" style={{ scaleY: scrollYProgress }} />
-        </div>
-      </div>
 
       <TopBar 
         profile={profile} 
@@ -284,7 +248,8 @@ export default function App() {
       </main>
 
       <footer className="site-footer">
-        <p>{profile.personal.name} | Designed to feel premium on desktop and mobile.</p>
+        <p>© {new Date().getFullYear()} {profile.personal.name}</p>
+        <a href="#hero">Back to top ↑</a>
       </footer>
     </div>
   );
@@ -292,17 +257,12 @@ export default function App() {
 
 // Memoized Hero Section
 const HeroSection = memo(({ profile, scrollTransforms, onMenuClose }) => (
-  <section className="hero section" id="hero">
-    <motion.div className="hero-copy" style={{ y: scrollTransforms.heroY, scale: scrollTransforms.heroScale }}>
-      <span className="eyebrow">
-        Apple-inspired storytelling | Stripe-like polish | recruiter-first narrative
-      </span>
+  <section className="hero section" id="hero" data-chapter="01">
+    <motion.div className="hero-copy" style={scrollTransforms.disabled ? undefined : { y: scrollTransforms.heroY, scale: scrollTransforms.heroScale }}>
+      <span className="eyebrow"><i /> Available for select engineering roles</span>
       <h1>
-        Building secure systems,
-        <br />
-        real-time experiences,
-        <br />
-        and products people remember.
+        I turn complex systems
+        <br /> into <em>clear products.</em>
       </h1>
       <p className="hero-summary">{profile.personal.subtitle}</p>
 
@@ -325,7 +285,7 @@ const HeroSection = memo(({ profile, scrollTransforms, onMenuClose }) => (
     </motion.div>
 
     <div className="hero-visual">
-      <motion.div className="hero-orbit-shell" style={{ y: scrollTransforms.orbitY, scale: scrollTransforms.orbitScale }}>
+      <motion.div className="hero-orbit-shell" style={scrollTransforms.disabled ? undefined : { y: scrollTransforms.orbitY, scale: scrollTransforms.orbitScale }}>
         <div className="hero-orbit hero-orbit--outer" />
         <div className="hero-orbit hero-orbit--middle" />
         <div className="hero-orbit hero-orbit--inner" />
@@ -341,7 +301,7 @@ const HeroSection = memo(({ profile, scrollTransforms, onMenuClose }) => (
         <div className="hero-node hero-node--eight" />
         <div className="hero-core">
           <strong>AI</strong>
-          <span>Scroll-driven tech storytelling</span>
+          <span>Systems × Product</span>
         </div>
         <div className="hero-code-pill hero-code-pill--one">Neural UI</div>
         <div className="hero-code-pill hero-code-pill--two">MERN Stack</div>
@@ -354,7 +314,7 @@ const HeroSection = memo(({ profile, scrollTransforms, onMenuClose }) => (
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       >
-        <span className="card-kicker card-kicker-dark">Recruiter Snapshot</span>
+        <span className="card-kicker card-kicker-dark">At a glance</span>
         <h2>{profile.personal.title}</h2>
         <p>{profile.personal.availability}</p>
 
@@ -439,12 +399,12 @@ MarqueeStrip.displayName = 'MarqueeStrip';
 
 // Memoized Impact Section
 const ImpactSection = memo(({ profile, scrollTransforms }) => (
-  <motion.section className="section" id="impact" style={{ y: scrollTransforms.impactY }}>
+  <motion.section className="section" id="impact" data-chapter="02" style={scrollTransforms.disabled ? undefined : { y: scrollTransforms.impactY }}>
     <Reveal>
       <SectionHeading
         eyebrow="Impact Highlights"
-        title="A portfolio built around outcomes, not only tools."
-        description="This experience is framed the way strong product teams present themselves: bold narrative, clear business value, and enough motion to keep recruiters curious without slowing them down."
+        title="The work, measured by what changed."
+        description="From secure infrastructure APIs to realtime interfaces, I focus on outcomes that teams and users can feel."
       />
     </Reveal>
 
@@ -455,7 +415,13 @@ const ImpactSection = memo(({ profile, scrollTransforms }) => (
         return (
           <Reveal key={highlight.title} delay={index * 0.08}>
             <motion.article
-              whileHover={{ y: -8, rotate: index % 2 === 0 ? -0.4 : 0.4 }}
+              whileHover={scrollTransforms.disabled ? undefined : {
+                y: -12,
+                rotateX: -2,
+                rotateY: index % 2 === 0 ? 3 : -3,
+                scale: 1.015,
+              }}
+              transition={{ type: 'spring', stiffness: 260, damping: 22 }}
               className="feature-card"
             >
               <div className="feature-icon">
@@ -516,12 +482,12 @@ ImpactSection.displayName = 'ImpactSection';
 
 // Memoized Projects Section
 const ProjectsSection = memo(({ profile, scrollTransforms }) => (
-  <motion.section className="section project-section" id="projects" style={{ y: scrollTransforms.projectsY }}>
+  <motion.section className="section project-section" id="projects" data-chapter="03" style={scrollTransforms.disabled ? undefined : { y: scrollTransforms.projectsY }}>
     <Reveal>
       <SectionHeading
         eyebrow="Featured Builds"
-        title="Hands-on MERN projects with modern product energy."
-        description="Each project card is designed like a launch panel: clear thesis, visible technical depth, and enough animation to create momentum on scroll for both laptop and mobile screens."
+        title="Products built end to end."
+        description="Selected work across commerce, realtime communication, and AI—each shaped from architecture through interaction."
       />
     </Reveal>
 
@@ -530,7 +496,13 @@ const ProjectsSection = memo(({ profile, scrollTransforms }) => (
         <Reveal key={project.name} delay={index * 0.08}>
           <motion.article
             className="project-card"
-            whileHover={{ y: -10, scale: 1.01 }}
+            whileHover={scrollTransforms.disabled ? undefined : {
+              y: -14,
+              scale: 1.012,
+              rotateX: -1.5,
+              rotateY: index % 2 === 0 ? 2.5 : -2.5,
+            }}
+            transition={{ type: 'spring', stiffness: 240, damping: 22 }}
             style={{
               '--project-glow': project.glow,
               '--project-border': project.border,
@@ -578,12 +550,12 @@ const SkillsSection = memo(({ profile, scrollTransforms }) => {
   const icons = [Cpu, Database, Workflow, Sparkles];
   
   return (
-    <motion.section className="section" id="skills" style={{ y: scrollTransforms.skillsY }}>
+    <motion.section className="section" id="skills" data-chapter="04" style={scrollTransforms.disabled ? undefined : { y: scrollTransforms.skillsY }}>
       <Reveal>
         <SectionHeading
           eyebrow="Capability Map"
-          title="Balanced across product polish, backend depth, and systems thinking."
-          description="The stack presentation is intentionally clean and highly scannable so a recruiter can understand range quickly, while engineers can still see the technical shape of the work."
+          title="A full-stack toolkit, grounded in systems thinking."
+          description="The technologies I use to ship reliable software, thoughtful interfaces, and automation that removes friction."
         />
       </Reveal>
 
@@ -613,8 +585,8 @@ const SkillsSection = memo(({ profile, scrollTransforms }) => {
         </div>
 
         <Reveal className="checklist-panel" delay={0.12}>
-          <span className="card-kicker">Why recruiters keep scrolling</span>
-          <h3>Quick reasons this profile stands out</h3>
+          <span className="card-kicker">Working style</span>
+          <h3>What I bring to a product team</h3>
           <div className="checklist-stack">
             {profile.recruiterChecklist.map((item, index) => {
               const Icon = checklistIcons[index % checklistIcons.length];
@@ -642,7 +614,8 @@ const ContactSection = memo(({ profile, scrollTransforms }) => (
   <motion.section
     className="section contact-section"
     id="contact"
-    style={{ y: scrollTransforms.contactY }}
+    data-chapter="05"
+    style={scrollTransforms.disabled ? undefined : { y: scrollTransforms.contactY }}
   >
     <Reveal>
       <article className="contact-panel">

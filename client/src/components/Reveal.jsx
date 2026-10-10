@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 const Reveal = memo(({
   children,
@@ -8,11 +8,13 @@ const Reveal = memo(({
   amount = 0.3,
   y = 40,
 }) => {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={shouldReduceMotion ? false : { opacity: 0, y }}
+      whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
       viewport={{ 
         once: true, 
         amount,
@@ -23,7 +25,7 @@ const Reveal = memo(({
         delay: delay + 0.1, // Base delay offset for staggering
         ease: [0.25, 0.46, 0.45, 0.94], // Improved easing curve
       }}
-      style={{ willChange: 'opacity, transform' }}
+      style={{ willChange: shouldReduceMotion ? 'auto' : 'opacity, transform' }}
     >
       {children}
     </motion.div>
