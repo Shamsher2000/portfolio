@@ -72,7 +72,7 @@ const TopBar = memo(({ profile, isMenuOpen, onMenuOpen, onDownload, isDownloadin
       </div>
     </a>
 
-    <nav className="desktop-nav">
+    <nav className="desktop-nav" aria-label="Primary navigation">
       {navItems.map((item) => (
         <a key={item.href} href={item.href}>
           {item.label}
@@ -94,6 +94,8 @@ const TopBar = memo(({ profile, isMenuOpen, onMenuOpen, onDownload, isDownloadin
         type="button"
         className="menu-button"
         aria-label="Open menu"
+        aria-expanded={isMenuOpen}
+        aria-controls="mobile-navigation"
         onClick={onMenuOpen}
       >
         <Menu size={20} />
@@ -109,7 +111,11 @@ const MobileMenu = memo(({ isOpen, onClose, profile, onDownload, isDownloading }
   <AnimatePresence>
     {isOpen ? (
       <motion.div
+        id="mobile-navigation"
         className="mobile-menu"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Site navigation"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -239,7 +245,7 @@ export default function App() {
       />
 
       <main>
-        <HeroSection profile={profile} scrollTransforms={scrollTransforms} onMenuClose={handleMenuClose} />
+        <HeroSection profile={profile} scrollTransforms={scrollTransforms} />
         <MarqueeStrip profile={profile} />
         <ImpactSection profile={profile} scrollTransforms={scrollTransforms} />
         <ProjectsSection profile={profile} scrollTransforms={scrollTransforms} />
@@ -248,22 +254,23 @@ export default function App() {
       </main>
 
       <footer className="site-footer">
-        <p>© {new Date().getFullYear()} {profile.personal.name}</p>
-        <a href="#hero">Back to top ↑</a>
+        <p>&copy; {new Date().getFullYear()} {profile.personal.name}</p>
+        <a href="#hero">Back to top</a>
       </footer>
     </div>
   );
 }
 
 // Memoized Hero Section
-const HeroSection = memo(({ profile, scrollTransforms, onMenuClose }) => (
+const HeroSection = memo(({ profile, scrollTransforms }) => (
   <section className="hero section" id="hero" data-chapter="01">
     <motion.div className="hero-copy" style={scrollTransforms.disabled ? undefined : { y: scrollTransforms.heroY, scale: scrollTransforms.heroScale }}>
-      <span className="eyebrow"><i /> Available for select engineering roles</span>
+      <span className="eyebrow"><i /> Systems engineering · product craft · AI</span>
       <h1>
         I turn complex systems
         <br /> into <em>clear products.</em>
       </h1>
+      <p className="hero-role">{profile.personal.title}</p>
       <p className="hero-summary">{profile.personal.subtitle}</p>
 
       <div className="hero-cta-row">
@@ -282,99 +289,28 @@ const HeroSection = memo(({ profile, scrollTransforms, onMenuClose }) => (
           <ExternalLinkPillMemo key={link.label} link={link} />
         ))}
       </div>
+
+      <div className="hero-proof-row">
+        {profile.heroMetrics.slice(0, 3).map((metric) => (
+          <div key={metric.label} className="hero-proof">
+            <strong>{metric.value}</strong>
+            <span>{metric.label}</span>
+          </div>
+        ))}
+      </div>
     </motion.div>
 
     <div className="hero-visual">
-      <motion.div className="hero-orbit-shell" style={scrollTransforms.disabled ? undefined : { y: scrollTransforms.orbitY, scale: scrollTransforms.orbitScale }}>
-        <div className="hero-orbit hero-orbit--outer" />
-        <div className="hero-orbit hero-orbit--middle" />
-        <div className="hero-orbit hero-orbit--inner" />
-        <div className="hero-orbit__beam hero-orbit__beam--one" />
-        <div className="hero-orbit__beam hero-orbit__beam--two" />
-        <div className="hero-node hero-node--one" />
-        <div className="hero-node hero-node--two" />
-        <div className="hero-node hero-node--three" />
-        <div className="hero-node hero-node--four" />
-        <div className="hero-node hero-node--five" />
-        <div className="hero-node hero-node--six" />
-        <div className="hero-node hero-node--seven" />
-        <div className="hero-node hero-node--eight" />
-        <div className="hero-core">
-          <strong>AI</strong>
-          <span>Systems × Product</span>
-        </div>
-        <div className="hero-code-pill hero-code-pill--one">Neural UI</div>
-        <div className="hero-code-pill hero-code-pill--two">MERN Stack</div>
-        <div className="hero-code-pill hero-code-pill--three">Automation</div>
+      <motion.div
+        className="hero-scene-note"
+        initial={{ opacity: 0, y: 18 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.55, duration: 0.7 }}
+      >
+        <span>Interactive engineering portfolio</span>
+        <small>Scroll to explore the system</small>
       </motion.div>
 
-      <motion.article
-        className="glass-card recruiter-card"
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <span className="card-kicker card-kicker-dark">At a glance</span>
-        <h2>{profile.personal.title}</h2>
-        <p>{profile.personal.availability}</p>
-
-        <div className="metric-grid">
-          {profile.heroMetrics.map((metric) => (
-            <div key={metric.label} className="metric-card">
-              <strong>{metric.value}</strong>
-              <span>{metric.label}</span>
-              <small>{metric.detail}</small>
-            </div>
-          ))}
-        </div>
-      </motion.article>
-
-      <motion.article
-        className="glass-card terminal-card"
-        initial={{ opacity: 0, y: 70 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.12, duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <div className="terminal-head">
-          <span />
-          <span />
-          <span />
-        </div>
-        <div className="terminal-body">
-          <p>$ engineer --profile shamsher</p>
-          <p>&gt; secure Node.js APIs for enterprise platforms</p>
-          <p>&gt; React interfaces for streaming telemetry</p>
-          <p>&gt; automation that removes manual deployment drag</p>
-          <p>&gt; product craft with recruiter-friendly storytelling</p>
-        </div>
-      </motion.article>
-
-      <motion.article
-        className="glass-card signal-card"
-        initial={{ opacity: 0, x: 30 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <span className="card-kicker card-kicker-dark">Signal Map</span>
-        <ul>
-          <li>
-            <ShieldCheck size={16} />
-            <span className="signal-item-text">Security-minded backend thinking</span>
-          </li>
-          <li>
-            <Monitor size={16} />
-            <span className="signal-item-text">High-volume UI and data visualization</span>
-          </li>
-          <li>
-            <Workflow size={16} />
-            <span className="signal-item-text">Automation-first ownership mindset</span>
-          </li>
-          <li>
-            <Sparkles size={16} />
-            <span className="signal-item-text">Premium presentation for recruiter impact</span>
-          </li>
-        </ul>
-      </motion.article>
     </div>
   </section>
 ));
@@ -627,6 +563,7 @@ const ContactSection = memo(({ profile, scrollTransforms }) => (
             academic record and real-world delivery across enterprise software, real-time UIs,
             automation, and MERN applications.
           </p>
+          <p className="contact-availability">{profile.personal.availability}</p>
 
           <div className="education-card">
             <div>
