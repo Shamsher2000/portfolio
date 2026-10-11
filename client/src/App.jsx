@@ -59,7 +59,7 @@ const navItems = [
 ];
 
 const highlightIcons = [ShieldCheck, Monitor, Workflow];
-const checklistIcons = [Rocket, ShieldCheck, Cpu, GraduationCap];
+const checklistIcons = [Rocket, ShieldCheck, Cpu, GraduationCap, Workflow];
 
 // Memoized navbar component
 const TopBar = memo(({ profile, isMenuOpen, onMenuOpen, onDownload, isDownloading }) => (
@@ -352,32 +352,6 @@ const HeroSection = memo(({ profile, scrollTransforms, onMenuClose }) => (
         </div>
       </motion.article>
 
-      <motion.article
-        className="glass-card signal-card"
-        initial={{ opacity: 0, x: 30 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <span className="card-kicker card-kicker-dark">Signal Map</span>
-        <ul>
-          <li>
-            <ShieldCheck size={16} />
-            <span className="signal-item-text">Security-minded backend thinking</span>
-          </li>
-          <li>
-            <Monitor size={16} />
-            <span className="signal-item-text">High-volume UI and data visualization</span>
-          </li>
-          <li>
-            <Workflow size={16} />
-            <span className="signal-item-text">Automation-first ownership mindset</span>
-          </li>
-          <li>
-            <Sparkles size={16} />
-            <span className="signal-item-text">Premium presentation for recruiter impact</span>
-          </li>
-        </ul>
-      </motion.article>
     </div>
   </section>
 ));
@@ -569,7 +543,16 @@ const SkillsSection = memo(({ profile, scrollTransforms }) => {
 
             return (
               <Reveal key={bucket.title} delay={index * 0.06}>
-                <article className="skill-bucket">
+                <motion.article
+                  className="skill-bucket"
+                  whileHover={scrollTransforms.disabled ? undefined : {
+                    y: -8,
+                    rotateX: -1.5,
+                    rotateY: index % 2 === 0 ? 2 : -2,
+                    scale: 1.012,
+                  }}
+                  transition={{ type: 'spring', stiffness: 280, damping: 24 }}
+                >
                   <div className="bucket-title">
                     <Icon size={18} />
                     <h3>{bucket.title}</h3>
@@ -581,7 +564,7 @@ const SkillsSection = memo(({ profile, scrollTransforms }) => {
                       </span>
                     ))}
                   </div>
-                </article>
+                </motion.article>
               </Reveal>
             );
           })}

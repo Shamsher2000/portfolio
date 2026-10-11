@@ -194,6 +194,7 @@ export const staticPortfolioData = {
     'MERN projects that show product thinking, API design, payments, realtime messaging, and AI features.',
     'Comfortable with both systems-heavy contexts and recruiter-facing presentation quality.',
     'Strong CS foundation with a 9.5 CGPA in Computer Science Engineering.',
+    'Ownership from architecture and implementation through validation, delivery, and clear technical storytelling.',
   ],
   education: {
     institution: 'Dayananda Sagar College of Engineering',
