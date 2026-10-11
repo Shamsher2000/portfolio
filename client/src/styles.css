@@ -1919,7 +1919,13 @@ body::selection { background: var(--accent); color: var(--bg); }
   .feature-card:hover .feature-icon svg { transform: scale(1.12) rotate(-6deg); }
   .skill-bucket:hover .bucket-title svg { transform: scale(1.12) rotate(6deg); }
 }
-.checklist-panel { background: var(--accent); color: var(--bg); }
+.checklist-panel { display: flex; flex-direction: column; background: var(--accent); color: var(--bg); }
+.checklist-panel .checklist-stack {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+}
 .checklist-panel .card-kicker, .checklist-panel h3 { color: var(--bg); }
 .checklist-item { border-color: rgba(11,12,10,.15); }
 .checklist-icon { background: var(--bg); color: var(--accent); }

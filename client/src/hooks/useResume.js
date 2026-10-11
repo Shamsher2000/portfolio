@@ -49,9 +49,9 @@ export function useResumeInfo() {
     available: true,
     filename: 'Shamsher_Tiwari_resume.pdf',
     path: '/resume/Shamsher_Tiwari_resume.pdf',
-    size: 245000, // Approximate size in bytes
-    sizeKB: 245,
-    lastModified: new Date('2024-01-15'),
+    size: 632469,
+    sizeKB: 618,
+    lastModified: new Date('2026-06-29'),
     downloadUrl: '/resume/Shamsher_Tiwari_resume.pdf',
   };
 

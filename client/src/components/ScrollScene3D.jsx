@@ -2,11 +2,11 @@ import { memo, useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 const chapters = [
-  { id: 'hero', number: '01', label: 'System core' },
-  { id: 'impact', number: '02', label: 'Signals' },
-  { id: 'projects', number: '03', label: 'Product worlds' },
+  { id: 'hero', number: '01', label: 'AI-ready core' },
+  { id: 'impact', number: '02', label: 'Enterprise proof' },
+  { id: 'projects', number: '03', label: 'Product proof' },
   { id: 'skills', number: '04', label: 'Capability map' },
-  { id: 'contact', number: '05', label: 'Convergence' },
+  { id: 'contact', number: '05', label: 'Let\'s talk' },
 ];
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);

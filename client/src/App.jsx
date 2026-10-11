@@ -52,7 +52,7 @@ const ExternalLinkPillMemo = memo(({ link, compact = false }) => {
 ExternalLinkPillMemo.displayName = 'ExternalLinkPillMemo';
 
 const navItems = [
-  { label: 'Impact', href: '#impact' },
+  { label: 'Experience', href: '#impact' },
   { label: 'Projects', href: '#projects' },
   { label: 'Skills', href: '#skills' },
   { label: 'Contact', href: '#contact' },
@@ -259,16 +259,16 @@ export default function App() {
 const HeroSection = memo(({ profile, scrollTransforms, onMenuClose }) => (
   <section className="hero section" id="hero" data-chapter="01">
     <motion.div className="hero-copy" style={scrollTransforms.disabled ? undefined : { y: scrollTransforms.heroY, scale: scrollTransforms.heroScale }}>
-      <span className="eyebrow"><i /> Available for select engineering roles</span>
+      <span className="eyebrow"><i /> Dell engineer · Secure systems · AI-assisted delivery</span>
       <h1>
-        I turn complex systems
-        <br /> into <em>clear products.</em>
+        I build secure,
+        <br /> <em>AI-ready</em> systems.
       </h1>
       <p className="hero-summary">{profile.personal.subtitle}</p>
 
       <div className="hero-cta-row">
-        <a className="primary-button" href="#projects">
-          Explore Projects
+        <a className="primary-button" href="#impact">
+          See Enterprise Impact
           <ArrowRight size={18} />
         </a>
         <a className="ghost-button" href={profile.personal.resumeUrl} download>
@@ -303,8 +303,8 @@ const HeroSection = memo(({ profile, scrollTransforms, onMenuClose }) => (
           <strong>AI</strong>
           <span>Systems × Product</span>
         </div>
-        <div className="hero-code-pill hero-code-pill--one">Neural UI</div>
-        <div className="hero-code-pill hero-code-pill--two">MERN Stack</div>
+        <div className="hero-code-pill hero-code-pill--one">Claude + LLMs</div>
+        <div className="hero-code-pill hero-code-pill--two">Full Stack</div>
         <div className="hero-code-pill hero-code-pill--three">Automation</div>
       </motion.div>
 
@@ -343,12 +343,12 @@ const HeroSection = memo(({ profile, scrollTransforms, onMenuClose }) => (
         <div className="terminal-body">
           <p className="terminal-command">
             <span className="terminal-prompt">$</span>
-            <span>engineer --profile shamsher</span>
+            <span>engineer --profile shamsher --ai-ready</span>
           </p>
-          <p><span className="terminal-marker">&gt;</span> Secure Node.js APIs for enterprise platforms</p>
-          <p><span className="terminal-marker">&gt;</span> Build React interfaces for real-time telemetry</p>
-          <p><span className="terminal-marker">&gt;</span> Automate deployments to remove manual friction</p>
-          <p><span className="terminal-marker">&gt;</span> Turn complex systems into clear product experiences</p>
+          <p><span className="terminal-marker">&gt;</span> Model SBAC permissions with Claude + LLMs</p>
+          <p><span className="terminal-marker">&gt;</span> Render Kafka telemetry with React + Redux Toolkit</p>
+          <p><span className="terminal-marker">&gt;</span> Automate OME: 2x speed, 50% less manual effort</p>
+          <p><span className="terminal-marker">&gt;</span> Build multilingual voice agents with Gemini 2.5 Flash</p>
         </div>
       </motion.article>
 
@@ -379,9 +379,9 @@ const ImpactSection = memo(({ profile, scrollTransforms }) => (
   <motion.section className="section" id="impact" data-chapter="02" style={scrollTransforms.disabled ? undefined : { y: scrollTransforms.impactY }}>
     <Reveal>
       <SectionHeading
-        eyebrow="Impact Highlights"
-        title="The work, measured by what changed."
-        description="From secure infrastructure APIs to realtime interfaces, I focus on outcomes that teams and users can feel."
+        eyebrow="Enterprise Impact"
+        title="Enterprise work, measured by what changed."
+        description="Secure access, real-time telemetry, and automation—each tied to clear ownership and measurable outcomes."
       />
     </Reveal>
 
@@ -424,10 +424,12 @@ const ImpactSection = memo(({ profile, scrollTransforms }) => (
                 <h3>{role.role}</h3>
                 <p className="timeline-company">{role.company}</p>
               </div>
-              <div className="timeline-location">
-                <MapPin size={16} />
-                <span>{role.location}</span>
-              </div>
+              {role.location ? (
+                <div className="timeline-location">
+                  <MapPin size={16} />
+                  <span>{role.location}</span>
+                </div>
+              ) : null}
             </div>
 
             <p className="timeline-summary">{role.summary}</p>
@@ -462,9 +464,9 @@ const ProjectsSection = memo(({ profile, scrollTransforms }) => (
   <motion.section className="section project-section" id="projects" data-chapter="03" style={scrollTransforms.disabled ? undefined : { y: scrollTransforms.projectsY }}>
     <Reveal>
       <SectionHeading
-        eyebrow="Featured Builds"
-        title="Products built end to end."
-        description="Selected work across commerce, realtime communication, and AI—each shaped from architecture through interaction."
+        eyebrow="Selected Builds"
+        title="Proof across AI, real-time, and commerce."
+        description="Three end-to-end MERN products showing how I design flows, integrate services, manage state, and ship complete user experiences."
       />
     </Reveal>
 
@@ -529,10 +531,10 @@ const SkillsSection = memo(({ profile, scrollTransforms }) => {
   return (
     <motion.section className="section" id="skills" data-chapter="04" style={scrollTransforms.disabled ? undefined : { y: scrollTransforms.skillsY }}>
       <Reveal>
-        <SectionHeading
-          eyebrow="Capability Map"
-          title="A full-stack toolkit, grounded in systems thinking."
-          description="The technologies I use to ship reliable software, thoughtful interfaces, and automation that removes friction."
+      <SectionHeading
+        eyebrow="Capability Map"
+        title="AI-ready, grounded in engineering fundamentals."
+        description="Hands-on AI tooling backed by secure APIs, real-time data, automation, system design, and end-to-end delivery."
         />
       </Reveal>
 
@@ -571,8 +573,8 @@ const SkillsSection = memo(({ profile, scrollTransforms }) => {
         </div>
 
         <Reveal className="checklist-panel" delay={0.12}>
-          <span className="card-kicker">Working style</span>
-          <h3>What I bring to a product team</h3>
+          <span className="card-kicker">AI-ready delivery</span>
+          <h3>What I bring to an AI-enabled product team</h3>
           <div className="checklist-stack">
             {profile.recruiterChecklist.map((item, index) => {
               const Icon = checklistIcons[index % checklistIcons.length];
@@ -607,11 +609,10 @@ const ContactSection = memo(({ profile, scrollTransforms }) => (
       <article className="contact-panel">
         <div className="contact-copy">
           <span className="eyebrow">Education & Contact</span>
-          <h2>Let&apos;s build something thoughtful, fast, and reliable.</h2>
+          <h2>Looking for an AI-ready engineer who can own systems end to end?</h2>
           <p>
-            {profile.education.degree} from {profile.education.institution}, backed by a strong
-            academic record and real-world delivery across enterprise software, real-time UIs,
-            automation, and MERN applications.
+            I&apos;m open to backend, full-stack, platform, and AI-enabled product roles where secure
+            architecture, real-time experiences, and automation matter.
           </p>
 
           <div className="education-card">
