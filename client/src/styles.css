@@ -1707,8 +1707,36 @@ body::selection { background: var(--accent); color: var(--bg); }
 .recruiter-card h2, .metric-card span { color: var(--text); }
 .metric-card small { color: var(--text-soft); }
 .recruiter-card { right: 0; top: 3rem; transform: rotate(1.5deg); }
-.terminal-card { left: 0; bottom: 4rem; transform: rotate(-2deg); background: var(--text); color: var(--bg); }
-.terminal-body p { color: rgba(11,12,10,.72); }
+.terminal-card {
+  left: 0;
+  bottom: 4rem;
+  transform: rotate(-2deg);
+  background: linear-gradient(145deg, rgba(3, 5, 10, .98), rgba(13, 22, 37, .98));
+  color: #f8fafc;
+  border-color: rgba(103, 232, 249, .3);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, .42), inset 0 1px 0 rgba(255, 255, 255, .06);
+}
+.terminal-card .terminal-head {
+  padding-bottom: .85rem;
+  border-bottom: 1px solid rgba(148, 163, 184, .18);
+}
+.terminal-card .terminal-body {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+}
+.terminal-card .terminal-body p {
+  display: flex;
+  align-items: baseline;
+  gap: .55rem;
+  margin-bottom: .7rem;
+  color: #cbd5e1;
+  font-size: clamp(.8rem, 1vw, .92rem);
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+.terminal-card .terminal-body p:last-child { margin-bottom: 0; }
+.terminal-card .terminal-body .terminal-command { color: #f8fafc; font-weight: 700; }
+.terminal-prompt { color: #a5b4fc; }
+.terminal-marker { flex: 0 0 auto; color: var(--accent); font-weight: 800; }
 .signal-card { right: -1.5rem; bottom: 1.5rem; }
 .card-kicker-dark { color: var(--accent); }
 .metric-card { background: var(--surface-raised); border-color: var(--surface-border); }

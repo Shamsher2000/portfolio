@@ -341,11 +341,14 @@ const HeroSection = memo(({ profile, scrollTransforms, onMenuClose }) => (
           <span />
         </div>
         <div className="terminal-body">
-          <p>$ engineer --profile shamsher</p>
-          <p>&gt; secure Node.js APIs for enterprise platforms</p>
-          <p>&gt; React interfaces for streaming telemetry</p>
-          <p>&gt; automation that removes manual deployment drag</p>
-          <p>&gt; product craft with recruiter-friendly storytelling</p>
+          <p className="terminal-command">
+            <span className="terminal-prompt">$</span>
+            <span>engineer --profile shamsher</span>
+          </p>
+          <p><span className="terminal-marker">&gt;</span> Secure Node.js APIs for enterprise platforms</p>
+          <p><span className="terminal-marker">&gt;</span> Build React interfaces for real-time telemetry</p>
+          <p><span className="terminal-marker">&gt;</span> Automate deployments to remove manual friction</p>
+          <p><span className="terminal-marker">&gt;</span> Turn complex systems into clear product experiences</p>
         </div>
       </motion.article>
 
