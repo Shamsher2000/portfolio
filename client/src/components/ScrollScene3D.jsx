@@ -57,46 +57,99 @@ const ScrollScene3D = memo(() => {
 
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, lowPower ? 1.15 : 1.75));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.05;
     renderer.setClearColor(0x000000, 0);
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-    camera.position.set(0, 0, compact ? 8.5 : 7.2);
+    const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
+    camera.position.set(0, 0, compact ? 9.2 : 7.8);
 
     const world = new THREE.Group();
     scene.add(world);
 
-    const coreGeometry = new THREE.TorusKnotGeometry(1.18, 0.34, lowPower ? 88 : 156, 18, 2, 3);
+    const sculpture = new THREE.Group();
+    world.add(sculpture);
+
+    const ribbonPath = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(-0.5, 3.7, -0.7),
+      new THREE.Vector3(0.85, 2.75, 0.15),
+      new THREE.Vector3(0.75, 1.55, 0.45),
+      new THREE.Vector3(-0.35, 0.35, 0.08),
+      new THREE.Vector3(-0.65, -0.9, -0.28),
+      new THREE.Vector3(0.62, -2.05, 0.35),
+      new THREE.Vector3(0.82, -3.55, -0.38),
+    ], false, 'catmullrom', 0.58);
+
+    const coreGeometry = new THREE.TubeGeometry(ribbonPath, lowPower ? 90 : 180, 0.42, lowPower ? 12 : 22, false);
     const coreMaterial = new THREE.MeshPhysicalMaterial({
       color: sceneColor,
-      roughness: 0.25,
-      metalness: 0.64,
+      roughness: 0.14,
+      metalness: 0.02,
+      transmission: lowPower ? 0.18 : 0.62,
+      thickness: 1.2,
+      ior: 1.32,
+      transparent: true,
+      opacity: 0.86,
       clearcoat: 1,
-      clearcoatRoughness: 0.18,
-      emissive: sceneColor,
-      emissiveIntensity: 0.35,
+      clearcoatRoughness: 0.12,
+      emissive: 0xfff5df,
+      emissiveIntensity: 0.08,
     });
     const core = new THREE.Mesh(coreGeometry, coreMaterial);
-    world.add(core);
+    sculpture.add(core);
 
-    const shellGeometry = new THREE.IcosahedronGeometry(1.95, 2);
-    const shellMaterial = new THREE.MeshBasicMaterial({
-      color: detailColor,
-      wireframe: true,
+    const innerGeometry = new THREE.TubeGeometry(ribbonPath, lowPower ? 80 : 160, 0.055, 10, false);
+    const innerMaterial = new THREE.MeshStandardMaterial({
+      color: 0xfff1dc,
+      emissive: 0xf7d9bc,
+      emissiveIntensity: 0.82,
       transparent: true,
-      opacity: 0.13,
+      opacity: 0.72,
+    });
+    const innerGlow = new THREE.Mesh(innerGeometry, innerMaterial);
+    sculpture.add(innerGlow);
+
+    const shellGeometry = new THREE.TubeGeometry(ribbonPath, lowPower ? 72 : 144, 0.5, 12, false);
+    const shellMaterial = new THREE.MeshPhysicalMaterial({
+      color: detailColor,
+      transparent: true,
+      opacity: 0.12,
+      roughness: 0.18,
+      metalness: 0,
+      side: THREE.BackSide,
     });
     const shell = new THREE.Mesh(shellGeometry, shellMaterial);
-    world.add(shell);
+    sculpture.add(shell);
+
+    const coinGroup = new THREE.Group();
+    coinGroup.position.set(-0.22, -0.38, 0.72);
+    coinGroup.rotation.set(Math.PI / 2.15, 0.28, -0.2);
+    const coinGeometry = new THREE.CylinderGeometry(0.36, 0.36, 0.09, lowPower ? 32 : 64);
+    const coinMaterial = new THREE.MeshPhysicalMaterial({
+      color: 0xe6ae37,
+      metalness: 0.92,
+      roughness: 0.16,
+      clearcoat: 1,
+      clearcoatRoughness: 0.08,
+    });
+    const coin = new THREE.Mesh(coinGeometry, coinMaterial);
+    coinGroup.add(coin);
+    const coinRimGeometry = new THREE.TorusGeometry(0.36, 0.026, 10, lowPower ? 36 : 72);
+    const coinRimMaterial = new THREE.MeshStandardMaterial({ color: 0xffde7a, metalness: 0.88, roughness: 0.16 });
+    const coinRim = new THREE.Mesh(coinRimGeometry, coinRimMaterial);
+    coinRim.rotation.x = Math.PI / 2;
+    coinGroup.add(coinRim);
+    sculpture.add(coinGroup);
 
     const ringGroup = new THREE.Group();
     const ringMaterial = new THREE.MeshBasicMaterial({
       color: accentColor,
       transparent: true,
-      opacity: 0.28,
+      opacity: 0.035,
       side: THREE.DoubleSide,
     });
-    [2.35, 2.75, 3.12].forEach((radius, index) => {
+    [2.8, 3.45].forEach((radius, index) => {
       const geometry = new THREE.TorusGeometry(radius, 0.012 + index * 0.005, 6, lowPower ? 80 : 140);
       const ring = new THREE.Mesh(geometry, ringMaterial);
       ring.rotation.set(index * 0.55, index * 0.72, index * 0.38);
@@ -104,7 +157,7 @@ const ScrollScene3D = memo(() => {
     });
     world.add(ringGroup);
 
-    const particleCount = lowPower ? 140 : 420;
+    const particleCount = lowPower ? 110 : 300;
     const positions = new Float32Array(particleCount * 3);
     for (let index = 0; index < particleCount; index += 1) {
       const radius = 2.2 + Math.random() * 3.2;
@@ -118,24 +171,24 @@ const ScrollScene3D = memo(() => {
     particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     const particleMaterial = new THREE.PointsMaterial({
       color: detailColor,
-      size: lowPower ? 0.024 : 0.03,
+      size: lowPower ? 0.02 : 0.027,
       transparent: true,
-      opacity: 0.48,
+      opacity: 0.34,
       depthWrite: false,
     });
     const particles = new THREE.Points(particleGeometry, particleMaterial);
     world.add(particles);
 
-    scene.add(new THREE.HemisphereLight(0xf8fafc, 0x070a12, 1.8));
-    const keyLight = new THREE.DirectionalLight(accentColor, 7);
+    scene.add(new THREE.HemisphereLight(0xffffff, 0xc9c2dd, 2.5));
+    const keyLight = new THREE.DirectionalLight(0xfff5e9, 5.5);
     keyLight.position.set(4, 5, 6);
     scene.add(keyLight);
-    const rimLight = new THREE.PointLight(0xffffff, 24, 16);
+    const rimLight = new THREE.PointLight(0xc98cff, 18, 18);
     rimLight.position.set(-4, -2, 4);
     scene.add(rimLight);
 
-    const baseHue = {};
-    new THREE.Color(sceneColor).getHSL(baseHue);
+    const baseSceneColor = new THREE.Color(sceneColor);
+    const altSceneColor = new THREE.Color(detailColor);
 
     const pointer = { x: 0, y: 0 };
     const smoothPointer = { x: 0, y: 0 };
@@ -214,7 +267,7 @@ const ScrollScene3D = memo(() => {
       const from = chapterPoses[index];
       const to = chapterPoses[Math.min(index + 1, chapterPoses.length - 1)];
       const ease = mix * mix * (3 - 2 * mix);
-      const mobileX = compact ? 0 : lerp(from.x, to.x, ease);
+      const mobileX = compact ? 1.35 : lerp(from.x, to.x, ease);
 
       world.position.x = mobileX + smoothPointer.x * 0.18;
       world.position.y = (compact ? 1.45 : lerp(from.y, to.y, ease)) - smoothPointer.y * 0.12;
@@ -223,23 +276,23 @@ const ScrollScene3D = memo(() => {
       world.scale.setScalar(sceneScale);
 
       if (!reducedMotion) {
-        core.rotation.x = time * 0.00017 + smoothScroll * Math.PI * 2.2;
-        core.rotation.y = time * 0.00024 + smoothScroll * Math.PI * 3.4;
-        shell.rotation.x = -time * 0.00007 + smoothScroll * 1.6;
-        shell.rotation.y = time * 0.0001 - smoothScroll * 2.1;
+        sculpture.rotation.x = -0.05 + smoothPointer.y * 0.055 + Math.sin(time * 0.00018) * 0.025;
+        sculpture.rotation.y = -0.18 + smoothPointer.x * 0.11 + smoothScroll * 0.72;
+        sculpture.rotation.z = -0.14 + smoothScroll * 0.34;
+        coinGroup.rotation.y = 0.28 + time * 0.00028 + smoothScroll * 1.2;
         ringGroup.rotation.z = time * 0.00006 + smoothScroll * Math.PI * 1.7;
         particles.rotation.y = time * 0.000025 + smoothScroll * 0.9;
       }
 
-      camera.position.z = (compact ? 8.5 : 7.2) - Math.sin(smoothScroll * Math.PI) * 0.55;
+      camera.position.z = (compact ? 9.2 : 7.8) - Math.sin(smoothScroll * Math.PI) * 0.55;
       camera.position.x = smoothPointer.x * 0.12;
       camera.position.y = -smoothPointer.y * 0.1;
       camera.lookAt(0, 0, 0);
 
-      const hueShift = lerp(from.hue, to.hue, ease);
-      coreMaterial.color.setHSL(baseHue.h + hueShift * 0.08, Math.max(baseHue.s, .72), Math.max(baseHue.l, .56));
-      coreMaterial.emissiveIntensity = 0.28 + Math.sin(smoothScroll * Math.PI * 4) * 0.08;
-      shellMaterial.opacity = 0.08 + (1 - Math.abs(mix - 0.5) * 2) * 0.1;
+      const colorMix = 0.08 + Math.sin(smoothScroll * Math.PI * 2) * 0.08;
+      coreMaterial.color.copy(baseSceneColor).lerp(altSceneColor, colorMix);
+      coreMaterial.emissiveIntensity = 0.06 + Math.sin(smoothScroll * Math.PI * 4) * 0.025;
+      shellMaterial.opacity = 0.08 + (1 - Math.abs(mix - 0.5) * 2) * 0.055;
 
       renderer.render(scene, camera);
       if (!reducedMotion) {
@@ -275,14 +328,14 @@ const ScrollScene3D = memo(() => {
       window.removeEventListener('scroll', updateScroll);
       window.removeEventListener('pointermove', updatePointer);
       document.removeEventListener('visibilitychange', handleVisibility);
-      coreGeometry.dispose();
-      coreMaterial.dispose();
-      shellGeometry.dispose();
-      shellMaterial.dispose();
-      ringGroup.children.forEach((ring) => ring.geometry.dispose());
-      ringMaterial.dispose();
-      particleGeometry.dispose();
-      particleMaterial.dispose();
+      world.traverse((object) => {
+        object.geometry?.dispose();
+        if (Array.isArray(object.material)) {
+          object.material.forEach((material) => material.dispose());
+        } else {
+          object.material?.dispose();
+        }
+      });
       renderer.dispose();
     };
   }, []);
